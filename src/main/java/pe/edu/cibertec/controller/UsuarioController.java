@@ -97,13 +97,13 @@ public class UsuarioController {
 	
 
 	@RequestMapping("/registrarJefe")
-	public String registrar(Model model){
+	public String registrarJefe(Model model){
 		
 		return "registrarJefe";
 	}
 	
 	@RequestMapping("/grabarJefe")
-	public String grabar(
+	public String grabarJefe(
 						 @RequestParam("nombre") String nom,
 						 @RequestParam("apellido") String ape,
 						 @RequestParam("email") String ema,
@@ -112,13 +112,15 @@ public class UsuarioController {
 						 @RequestParam("password") String pas,
 						 RedirectAttributes redirect,HttpServletRequest request) {		
 		try {
+			String var;
+			var = encoder.encode(pas);
 			Usuario usu=new Usuario();
 			usu.setNombre(nom);
 			usu.setApellido(ape);
 			usu.setEmail(ema);
 			usu.setTelefono(tel);
 			usu.setUsername(use);
-			usu.setPassword(pas);
+			usu.setPassword(var);
 
 			Rol r=new Rol();
 			r.setCodigo(2);
@@ -131,7 +133,7 @@ public class UsuarioController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/sesion/consultaPorRol";
+		return "principal";
 	}
 	
 	@RequestMapping("/listarJefe")
@@ -140,6 +142,54 @@ public class UsuarioController {
 		
 		return "listarJefes";
 	}
+	
+	@RequestMapping("/registrarPrestamista")
+	public String registrarPrestamista(Model model){
+		
+		return "registrarPrestamista";
+	}
+	
+	
+	@RequestMapping("/grabarPrestamista")
+	public String grabarPrestamista(
+						 @RequestParam("nombre") String nom,
+						 @RequestParam("apellido") String ape,
+						 @RequestParam("email") String ema,
+						 @RequestParam("telefono") String tel,
+						 @RequestParam("username") String use,
+						 @RequestParam("password") String pas,
+						 RedirectAttributes redirect,HttpServletRequest request) {		
+		try {
+			String var;
+			var = encoder.encode(pas);
+			Usuario usu=new Usuario();
+			usu.setNombre(nom);
+			usu.setApellido(ape);
+			usu.setEmail(ema);
+			usu.setTelefono(tel);
+			usu.setUsername(use);
+			usu.setPassword(var);
+
+			Rol r=new Rol();
+			r.setCodigo(3);
+			usu.setRol(r);
+			servicioUsu.registrar(usu);
+			
+			redirect.addFlashAttribute("MENSAJE","Prestamista registrado");
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "principal";
+	}
+	@RequestMapping("/listarPrestamista")
+	public String listarPrestamista(Model model){
+		model.addAttribute("Prestamista",servicioUsu.listarUsuarioporRol(3));
+		
+		return "listarPrestamistas";
+	}
+	
 	
 }
 
