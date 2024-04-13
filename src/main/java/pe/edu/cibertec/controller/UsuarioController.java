@@ -56,7 +56,7 @@ public class UsuarioController {
 	}
 	
 	
-	
+	//METODO PARA QUE EL PRESTATARIO SE REGISTRE SOLO
 	@RequestMapping("/registrarPrestatario")
 	public String registrarPrestatario(
 						 @RequestParam("nombre") String nom,
@@ -95,7 +95,7 @@ public class UsuarioController {
 		return "redirect:/sesion/login";
 	}
 	
-
+//METODO PARA QUE EL EL INVERSIONISTA REGISTRE AL JEFE DE PRESTAMISTAS
 	@RequestMapping("/registrarJefe")
 	public String registrarJefe(Model model){
 		
@@ -127,7 +127,7 @@ public class UsuarioController {
 			usu.setRol(r);
 			servicioUsu.registrar(usu);
 			
-			redirect.addFlashAttribute("MENSAJE","Usuario registrado");
+			redirect.addFlashAttribute("MENSAJE","Jefe registrado");
 			
 			
 		} catch (Exception e) {
