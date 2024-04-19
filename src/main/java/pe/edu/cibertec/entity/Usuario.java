@@ -2,6 +2,8 @@ package pe.edu.cibertec.entity;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,7 +20,7 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_usuario")
-    private int id;
+    private Integer id;
 	@Column(name = "username")
     private String username;
 	@Column(name = "password")
@@ -31,18 +33,19 @@ public class Usuario {
     private String email;
 	@Column(name = "telefono")
     private String telefono;
-	
+
+
 	@ManyToOne
 	@JoinColumn(name="idrol")
 	private Rol rol;
 
 
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

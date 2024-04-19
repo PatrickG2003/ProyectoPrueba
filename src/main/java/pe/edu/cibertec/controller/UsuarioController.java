@@ -152,6 +152,7 @@ public class UsuarioController {
 	
 	@RequestMapping("/grabarPrestamista")
 	public String grabarPrestamista(
+						 @RequestParam("id") Integer id,
 						 @RequestParam("nombre") String nom,
 						 @RequestParam("apellido") String ape,
 						 @RequestParam("email") String ema,
@@ -168,12 +169,22 @@ public class UsuarioController {
 			usu.setEmail(ema);
 			usu.setTelefono(tel);
 			usu.setUsername(use);
-			usu.setPassword(var);
+			
 
 			Rol r=new Rol();
 			r.setCodigo(3);
 			usu.setRol(r);
-			servicioUsu.registrar(usu);
+			if(id ==0) {
+				usu.setPassword(var);
+				servicioUsu.registrar(usu);
+				redirect.addFlashAttribute("MENSAJE","Medicamento registrado");
+			}
+			else {
+				usu.setId(id);
+				usu.setPassword(pas);
+				servicioUsu.actualizar(usu);
+				redirect.addFlashAttribute("MENSAJE","Medicamento actualizado");
+			}
 			
 			redirect.addFlashAttribute("MENSAJE","Prestamista registrado");
 			
@@ -183,6 +194,8 @@ public class UsuarioController {
 		}
 		return "principal";
 	}
+
+	
 	@RequestMapping("/listarPrestamista")
 	public String listarPrestamista(Model model){
 		model.addAttribute("Prestamista",servicioUsu.listarUsuarioporRol(3));
@@ -190,6 +203,19 @@ public class UsuarioController {
 		return "listarPrestamistas";
 	}
 	
+	@RequestMapping("/consultaPorID")
+	@ResponseBody
+	public Usuario consultaPorID(@RequestParam("id") Integer id){
+		return servicioUsu.buscarPorID(id);
+	}
+	
+	@RequestMapping("/eliminarPorID")
+	public String eliminar(@RequestParam("codigo") Integer cod) {
+		 
+		servicioUsu.eliminar(cod);
+		
+		 return "principal";
+	}
 	
 }
 
