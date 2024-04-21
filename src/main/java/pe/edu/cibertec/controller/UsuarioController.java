@@ -177,13 +177,13 @@ public class UsuarioController {
 			if(id ==0) {
 				usu.setPassword(var);
 				servicioUsu.registrar(usu);
-				redirect.addFlashAttribute("MENSAJE","Medicamento registrado");
+				redirect.addFlashAttribute("MENSAJE","Prestamista registrado");
 			}
 			else {
 				usu.setId(id);
 				usu.setPassword(pas);
 				servicioUsu.actualizar(usu);
-				redirect.addFlashAttribute("MENSAJE","Medicamento actualizado");
+				redirect.addFlashAttribute("MENSAJE","Prestamista actualizado");
 			}
 			
 			redirect.addFlashAttribute("MENSAJE","Prestamista registrado");
@@ -209,12 +209,20 @@ public class UsuarioController {
 		return servicioUsu.buscarPorID(id);
 	}
 	
+	
+	
+	
 	@RequestMapping("/eliminarPorID")
-	public String eliminar(@RequestParam("codigo") Integer cod) {
+	public String eliminar(@RequestParam("codigo") Integer cod,RedirectAttributes redirect) {
 		 
-		servicioUsu.eliminar(cod);
-		
-		 return "principal";
+		 try {
+	            servicioUsu.eliminar(cod);
+	            redirect.addFlashAttribute("MENSAJE", "Usuario eliminado con éxito");
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            redirect.addFlashAttribute("ERROR", "Error al eliminar el usuario");
+	        }		
+		 return "redirect:/sesion/principal";
 	}
 	
 }
