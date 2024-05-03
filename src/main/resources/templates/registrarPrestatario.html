@@ -15,6 +15,7 @@
   href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
   rel="stylesheet"
 />
+     <link rel="icon" href="https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs/295214478/original/1bb1a46d6f5d484658d5320d1525079900c12547/design-lion-head-logo-with-express-delivery.png" type="image/png">
 
 <link
   href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.css"
@@ -127,22 +128,76 @@
    	<div th:replace="~{nav :: cabecera}"></div>
 
 
-    <div class="hero" style="background: url(https://www.peru.travel/Contenido/General/Imagen/es/607/1.1/miraflores-costa-verde-distrito.jpg);">
-      <div class="container">
-        <h1>MUNICIPALIDAD DE MIRAFLORES</h1>
-        
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing 
-           <br> elit. Maiores, consequuntur?</p>
-      </div>
+     <div class="container">
+		<form th:action="@{grabarPrestatario}" method="POST">
+      
+      
+      <div class="row">
+											<div class="form-group has-feedback col-md-12">
+											<label for="exampleInputEmail1"><b>Codigo</b></label><br>
+											<input type="hidden" id="idCodigo" class="form-control" name="id" value="0">
+											</div>
+            <div class="row mb-4">
+              <div class="col">
+                <div>
+                    <label class="form-label" for=""><strong> Nombre</strong></label>
+                  <input type="text" id="" class="form-control" name="nombre" />
+                   </div>
+              </div>
+              <div class="col">
+                <div>
+                  <label class="form-label" for=""><strong>Apellido</strong></label>
+                  <input type="textbox" id="" class="form-control" name="apellido" />
+                </div>
+              </div>
+               <div class="col">
+                  <div>
+                    <label class="form-label" for=""><strong>Nombre de Usuario</strong></label>
+                  <input type="textbox" id="" class="form-control" name="username" />
+                  </div>
+                </div>
+            </div>
+          
+            <div class="row mb-4">
+                <div class="col">
+                  <div>
+                      <label class="form-label" for=""><strong>Email</strong></label>
+                      <br>
+                  <input type="textbox" id="" class="form-control" name="email" />
+                     </div>
+                </div>
+                <div class="col">
+                  <div>
+                    <label class="form-label" for=""><strong>Telefono</strong></label>
+                  <input type="textbox" id="" class="form-control" name="telefono" />
+                  </div>
+                </div>
+                 <div class="col">
+                  <div>
+                    <label class="form-label" for=""><strong>Contraseña</strong></label>
+                  <input type="textbox" id="" class="form-control" name="password" />
+                  </div>
+                </div>
+                
+              </div>
+          
+            
+         
+          <br>
+          <br>
+           <div class="text-center"> 
+            <input type="submit" class="btn btn-primary" value="Registrar"/>
+            <a href="./solicitudes-main.html" class="btn btn-danger">CANCELAR</a>
+            
+          <br>
+          <br>
+          <br>
+          <br>
+        </div>
+
+          </form>
+
     </div>
-
-    <section class="container content">
-      <h2>Nota 1</h2>
-      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ratione dolorem voluptates eveniet tempora ut cupiditate magnam, sapiente, hic quo in ipsum iste soluta eaque perferendis nihil recusandae dolore officia aperiam corporis similique. Facilis quos tempore labore totam! Consectetur molestiae iusto ducimus error reiciendis aspernatur dolor, modi dolorem sit architecto, voluptate magni sunt unde est quas? Voluptates a dolorum voluptatum quo perferendis aut sit. Aspernatur libero laboriosam ab eligendi omnis delectus earum labore, placeat officiis sint illum rem voluptas ipsum repellendus iste eius recusandae quae excepturi facere, iure rerum sequi? Illum velit delectus dicta et iste dolorum obcaecati minus odio eligendi!</p>
-
-      <h3>Nota 2</h3>
-      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Pariatur provident nostrum possimus inventore nisi laboriosam consequatur modi nulla eos, commodi, omnis distinctio! Maxime distinctio impedit provident, voluptates illo odio nostrum minima beatae similique a sint sapiente voluptatum atque optio illum est! Tenetur tempora doloremque quae iste aperiam hic cumque repellat?</p>
-    </section>
 
 
 <footer class="text-center text-lg-start bg-body-tertiary text-muted">

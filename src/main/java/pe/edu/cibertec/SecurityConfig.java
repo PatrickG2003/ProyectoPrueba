@@ -28,7 +28,7 @@ public class SecurityConfig {
 		http
 		.authorizeHttpRequests((requests) -> requests
 				.requestMatchers("/sesion/**","resources/**").permitAll()
-				.requestMatchers("/solicitud/**","/sesion/**","/cronograma/**").authenticated()
+				.requestMatchers("/inversionista/**","/jefe/**","/prestamista/**","/prestatario/**").authenticated()
 		)
 		.formLogin((form) -> form
 			.loginPage("/sesion/login").defaultSuccessUrl("/sesion/principal")

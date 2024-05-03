@@ -16,16 +16,17 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpServletRequest;
-import pe.edu.cibertec.service.RolService;
-import pe.edu.cibertec.service.UsuarioService;
-import pe.edu.cibertec.entity.Usuario;
 import pe.edu.cibertec.entity.Enlace;
 import pe.edu.cibertec.entity.Rol;
+import pe.edu.cibertec.entity.Usuario;
+import pe.edu.cibertec.service.RolService;
+import pe.edu.cibertec.service.UsuarioService;
 
 @Controller
-@RequestMapping("/sesion")
+@RequestMapping("/prestamista")
 @SessionAttributes({"ENLACES","DATOSDELUSUARIO","IDUSUARIO"})
-public class UsuarioController {
+
+public class PrestamistaController {
 	@Autowired
 	private UsuarioService servicioUsu;
 	
@@ -33,11 +34,6 @@ public class UsuarioController {
 	private RolService servicioRol;
 	@Autowired
 	private BCryptPasswordEncoder encoder;
-	
-	@RequestMapping("/login")
-	public String login() {
-		return "login";
-	}
 	
 	@RequestMapping("/principal")
 	public String intranet(Authentication auth,Model model) {
@@ -55,53 +51,61 @@ public class UsuarioController {
 		return "principal";
 	}
 	
-	
-	//METODO PARA QUE EL PRESTATARIO SE REGISTRE SOLO
-	@RequestMapping("/registrarPrestatario")
-	public String registrarPrestatario(
+	@RequestMapping("/registrarPrestatarios")
+	public String registrarPrestatarios(Model model){
+		
+		return "registrarPrestatario";
+	}
+	@RequestMapping("/listarPrestatarios")
+	public String listarPrestatarios(Model model){
+		model.addAttribute("Prestatarios",servicioUsu.listarUsuarioporRol(4));
+		
+		return "listarPrestatarios";
+	}
+	@RequestMapping("/grabarPrestatario")
+	public String grabarPrestatarios(
+						 @RequestParam("id") Integer id,
 						 @RequestParam("nombre") String nom,
 						 @RequestParam("apellido") String ape,
-						 @RequestParam("celular") String cel,
-						 @RequestParam("correo") String cor,
-						 @RequestParam("usuario") String usu,
+						 @RequestParam("email") String ema,
+						 @RequestParam("telefono") String tel,
+						 @RequestParam("username") String use,
 						 @RequestParam("password") String pas,
-						 
-
 						 RedirectAttributes redirect,HttpServletRequest request) {		
 		try {
-			
 			String var;
 			var = encoder.encode(pas);
-			Usuario usuario=new Usuario();
-			usuario.setNombre(nom);
-			usuario.setApellido(ape);
-			usuario.setEmail(cor);
-			usuario.setTelefono(cel);
-			usuario.setUsername(usu);
-			usuario.setPassword(var);
+			Usuario usu=new Usuario();
+			usu.setNombre(nom);
+			usu.setApellido(ape);
+			usu.setEmail(ema);
+			usu.setTelefono(tel);
+			usu.setUsername(use);
 			
-			Rol rol=new Rol();
-			rol.setCodigo(4);
-			usuario.setRol(rol);
-		
-			servicioUsu.registrar(usuario);
+
+			Rol r=new Rol();
+			r.setCodigo(4);
+			usu.setRol(r);
+			if(id ==0) {
+				usu.setPassword(var);
+				servicioUsu.registrar(usu);
+				redirect.addFlashAttribute("MENSAJE","Prestamista registrado");
+			}
+			else {
+				usu.setId(id);
+				usu.setPassword(pas);
+				servicioUsu.actualizar(usu);
+				redirect.addFlashAttribute("MENSAJE","Prestatario actualizado");
+			}
 			
-			redirect.addFlashAttribute("MENSAJE","Usuario registrado");
+			redirect.addFlashAttribute("MENSAJE","Prestatario registrado");
 			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/sesion/login";
+		return "redirect:/prestamista/listarPrestatarios";
 	}
-	
-	
-	
-
-	
-
-	
-	
 	@RequestMapping("/consultaPorID")
 	@ResponseBody
 	public Usuario consultaPorID(@RequestParam("id") Integer id){
@@ -123,25 +127,8 @@ public class UsuarioController {
 	        }		
 		 return "redirect:/sesion/principal";
 	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
 	
 }
-
-
-

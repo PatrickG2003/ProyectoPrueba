@@ -143,7 +143,7 @@
    	<div th:replace="~{nav :: cabecera}"></div>
 	<div class="container">
 		
-			<h3 class="text-center mt-4">LISTA DE PRESTAMISTAS</h3>
+			<h3 class="text-center mt-4">LISTA DE PRESTATARIOS</h3>
 			
 			
 			<div class=" mt-2">
@@ -165,7 +165,7 @@
   </thead>
   <tbody>
    
-	<tr th:each="row:${Prestamista}">
+	<tr th:each="row:${Prestatarios}">
 			<td th:text="${row.id}"></td>
 			<td th:text="${row.nombre}"></td>
 			<td th:text="${row.apellido}"></td>
@@ -193,7 +193,7 @@
 								</div>
 								<div class="modal-body">
 								
-									<form method="POST" id="idRegistra" th:action="@{grabarPrestamista}">	
+									<form method="POST" id="idRegistra" th:action="@{grabarPrestatario}">	
 										
 										<div class="container">
 											<div class="row">
