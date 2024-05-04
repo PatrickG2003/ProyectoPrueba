@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,8 +19,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import jakarta.servlet.http.HttpServletRequest;
 import pe.edu.cibertec.entity.Enlace;
 import pe.edu.cibertec.entity.Rol;
+import pe.edu.cibertec.entity.Sector;
 import pe.edu.cibertec.entity.Usuario;
 import pe.edu.cibertec.service.RolService;
+import pe.edu.cibertec.service.SectorServiceImpl;
 import pe.edu.cibertec.service.UsuarioService;
 
 @Controller
@@ -34,6 +37,9 @@ public class JefeController {
 	private RolService servicioRol;
 	@Autowired
 	private BCryptPasswordEncoder encoder;
+	
+	@Autowired
+	private SectorServiceImpl sectorService;
 	
 	@RequestMapping("/principal")
 	public String intranet(Authentication auth,Model model) {
@@ -67,6 +73,7 @@ public class JefeController {
 						 @RequestParam("telefono") String tel,
 						 @RequestParam("username") String use,
 						 @RequestParam("password") String pas,
+						 @RequestParam("sector") int sectorId,
 						 RedirectAttributes redirect,HttpServletRequest request) {		
 		try {
 			String var;
@@ -78,6 +85,9 @@ public class JefeController {
 			usu.setTelefono(tel);
 			usu.setUsername(use);
 			
+			Sector sector = new Sector();
+	        sector.setId(sectorId);
+	        usu.setSector(sector);
 
 			Rol r=new Rol();
 			r.setCodigo(3);
@@ -103,6 +113,12 @@ public class JefeController {
 		return "redirect:/jefe/listarPrestamista";
 	}
 
+	
+	@ModelAttribute("sectores")
+	public List<Sector> getSector(){
+		List<Sector> listaSector = sectorService.listarTodos();
+		return listaSector;
+	}
 	
 	@RequestMapping("/listarPrestamista")
 	public String listarPrestamista(Model model){
