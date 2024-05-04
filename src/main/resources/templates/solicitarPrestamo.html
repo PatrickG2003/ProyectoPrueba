@@ -1,0 +1,313 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/principal.css" />
+    <!-- Font Awesome -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+            rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+            rel="stylesheet"
+    />
+
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.css"
+            rel="stylesheet"
+    />
+
+    <link rel="icon" href="https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs/295214478/original/1bb1a46d6f5d484658d5320d1525079900c12547/design-lion-head-logo-with-express-delivery.png" type="image/png">
+
+    <script
+            type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js"
+    ></script>
+    <script src="https://kit.fontawesome.com/23f63af3b1.js" crossorigin="anonymous"></script>
+    <title>Registrar Solicitud</title>
+    <style>
+        .modal-header, h4, .close {
+            background-color: #286090;
+            color: white !important;
+            text-align: center;
+            font-size: 20px;
+        }
+        .help-block{
+         color: red;
+         /*display: none;*/
+        }
+        .form-group.has-error .form-control-label {
+          color: red;
+        }
+        .form-group.has-error .form-control {
+          border: 1px solid red;
+          box-shadow: 0 0 0 0.2rem rgba(250, 16, 0, 0.18);
+        }
+
+        .alertify .ajs-dialog {
+            top: 50%;
+            transform: translateY(-50%);
+            margin: auto;
+        }
+
+        .ajs-header{
+            background-color: #286090 !important;
+            color: white !important;
+            /*text-align: center;*/
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .ajs-ok{
+            color: #fff;
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .ajs-cancel{
+            color: #fff;
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+        .btn-primary{
+        background-color: #286090 !important;
+        }
+        .dataTables_length, .dataTables_info{
+            display: none;
+        }
+        .modal-lg, .modal-xl {
+            max-width: 900px;
+            max-height: 800px;
+        }
+
+        .form-control-feedback2 {
+          margin:1px;
+          position: absolute;
+          padding: 10px;
+          pointer-events: none;
+          background-color: #e9ecef;
+          border-style: none;
+        }
+        .form-control-feedback3 {
+          margin:1px;
+          position: absolute;
+          margin-left:225px;
+          padding: 10px;
+          pointer-events: none;
+          background-color: #e9ecef;
+          border-style: none;
+        }
+        .form-control {
+          padding-left: 40px!important;
+        }
+        .alto{
+        height:38px;
+        width:120px;
+        }
+        /*.toast-succes{
+            width: 120px;
+        }*/
+
+
+         .Menu{
+        width: 100%;
+        top: 0px;
+
+        background-color: rgba(255, 255, 255, 0.857);
+    }
+    #btn img{
+        width:225px;
+        padding:12px;
+        background-color: rgba(255, 255, 255, 0.857);
+    }
+    #btn{
+        display: flex;
+        font-size: 24px;
+        list-style: none;
+        border-style: solid;
+        background-color: white;
+        border-color: rgba(212, 212, 212, 0.495);
+    }
+    #btn li a{
+        font-family: 'Courier New', Courier, monospace;
+        text-align: center;
+        color: black;
+        text-decoration: none;
+        padding: 29px;
+        display: block;
+        background-color: rgba(255, 255, 255, 0.857);
+        margin: auto;
+    }
+    #btn li ul{
+        position: absolute;
+        display: none;
+        transform: translateX(-17%) translateY(1%);
+        list-style: none;
+        font-size: 15px;
+
+    }
+    #btn li ul li a{
+        justify-content: center;
+
+    }
+    #btn li:hover >ul{
+        display: block;
+    }
+    </style>
+</head>
+
+<body>
+<div th:replace="~{nav :: cabecera}"></div>
+
+<div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0);">
+    <a class="text-reset fw-bold" >REGISTRAR SOLICITUD DE PRESTAMO</a>
+</div>
+<div class="container">
+    <form id="formularioSolicitud" th:action="@{registrarSolicitud}" method="POST">
+        <div class="form-group has-feedback col-md-12">
+            <input type="hidden" id="idCodigo" class="form-control" name="id" value="0">
+        </div>
+        <div class="row mb-4">
+            <div class="col-md-2">
+                <div>
+                    <label class="form-label" for=""><strong> Monto</strong></label>
+                    <input type="text" id="" class="form-control" name="montoinicial" />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div>
+                    <label class="form-label" for=""><strong>Fecha Inicio</strong></label>
+                    <input type="date" id="" class="form-control" name="fechainicio" />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div>
+                    <input type="button" id="botonCalcular" class="btn btn-primary" value="Calcular"/>
+                </div>
+            </div>
+
+        </div>
+        <div class="row mb-4">
+            <div class="col-md-2">
+                <div>
+                    <label class="form-label" for=""><strong> Monto Final</strong></label>
+                    <input type="text" id="" class="form-control" name="montofinal" disabled />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div>
+                    <label class="form-label" for=""><strong>Fecha Fin</strong></label>
+                    <input type="date" id="" class="form-control" name="fechafin" disabled/>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div>
+                    <label class="form-label" for=""><strong>Interes</strong></label>
+                    <input type="text" id="" class="form-control" name="interes" disabled />
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div>
+                    <label class="form-label" for=""><strong>Pago Diario</strong></label>
+                    <input type="text" id="" class="form-control" name="pagodiario" disabled />
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <input type="submit" class="btn btn-primary" value="Registrar"/>
+        </div>
+
+    </form>
+
+</div>
+
+
+<footer class="text-center text-lg-start bg-body-tertiary text-muted">
+
+    <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+        <div class="me-5 d-none d-lg-block">
+
+        </div>
+
+
+        <div>
+            <a href="" class="me-4 text-reset">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+                <i class="fab fa-google"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
+
+    </section>
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+        © 2024 Copyright:
+        <a class="text-reset fw-bold" href="https://mdbootstrap.com/">PROYECTO INTEGRADOR </a>
+    </div>
+    <!-- Copyright -->
+</footer>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const botonCalcular = document.getElementById("botonCalcular");
+        botonCalcular.addEventListener("click", function(event) {
+            event.preventDefault(); // Prevenir el comportamiento por defecto del botón
+
+            const monto = parseFloat(document.querySelector("[name='montoinicial']").value);
+            const fechaInicio = new Date(document.querySelector("[name='fechainicio']").value);
+
+            const resultado = calcularDatos(fechaInicio, monto);
+
+            document.querySelector("[name='montofinal']").value = resultado.montoTotal.toFixed(2);
+            document.querySelector("[name='fechafin']").value = resultado.fechaFin.toISOString().slice(0,10);
+            document.querySelector("[name='interes']").value = resultado.porcentajeInteres + "%";
+            document.querySelector("[name='pagodiario']").value = resultado.pagoDiario.toFixed(2);
+        });
+    });
+
+    function calcularDatos(fechaInicio, monto) {
+
+    let fechaFin = new Date(fechaInicio);
+    fechaFin.setDate(fechaFin.getDate() + 30);
+
+    let diasLaborables = 0;
+    let fechaActual = new Date(fechaInicio);
+    while (fechaActual <= fechaFin) {
+        if (fechaActual.getDay() !== 0 && fechaActual.getDay() !== 6) {
+            diasLaborables++;
+        }
+        fechaActual.setDate(fechaActual.getDate() + 1);
+    }
+
+    let interes = monto * 0.1;
+
+    let montoTotal = monto + interes;
+
+    let pagoDiario = montoTotal / diasLaborables;
+
+    return {
+        fechaFin: fechaFin,
+        porcentajeInteres: 10,
+        pagoDiario: pagoDiario,
+        montoTotal: montoTotal
+    };
+}
+</script>
+
+
+</body>
+</html>

@@ -51,36 +51,36 @@ public class PrestatarioController {
 		return "principal";
 	}
 
-	@RequestMapping("/solicitud")
-	public String registrarJefe(Model model){
+	@RequestMapping("/solicitarPrestamo")
+	public String registrarSolicitud(Model model){
 
-		return "registrarSolicitud";
+		return "solicitarPrestamo";
 	}
 
-	@RequestMapping("/registarSolicitud")
-			public String registrarS(
-					@RequestParam("montoinicial") Integer montoi,
-					@RequestParam("fechaInicio")@DateTimeFormat(pattern = "yyyy-MM-dd") Date fechai,
-					@RequestParam("fechaFin")@DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaf,
-					@RequestParam("periodo") String periodo,
-					@RequestParam("montofinal") Integer montof,
-					@RequestParam("pagodiario") Double pagod,
-					RedirectAttributes redirect, HttpServletRequest request,Authentication auth) {
-				try {
+	@RequestMapping("/registrarSolicitud")
+	public String registrarS(
+			@RequestParam("montoinicial") Integer montoi,
+			@RequestParam("fechaInicio")@DateTimeFormat(pattern = "yyyy-MM-dd") Date fechai,
+			@RequestParam("fechaFin")@DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaf,
+			@RequestParam("periodo") String periodo,
+			@RequestParam("montofinal") Integer montof,
+			@RequestParam("pagodiario") Double pagod,
+			RedirectAttributes redirect, HttpServletRequest request,Authentication auth) {
+		try {
 
-					Solicitud solicitud= new Solicitud();
+			Solicitud solicitud= new Solicitud();
 
-					solicitud.setMontoInicial(montoi);
-					solicitud.setMontoInicial(montof);
-					solicitud.setFechaInicio(fechai);
-					solicitud.setFechaFin(fechaf);
-					solicitud.setEstado("solicitado");
-					solicitud.setPeriodo(periodo);
-					solicitud.setPagoDiario(pagod);
-					//pasarle el id del logueado
-					solicitud.getUsuarioRegistro();
-					serviceSolicitud.registrar(solicitud);
-					redirect.addFlashAttribute("MENSAJE","Solicitud registrada");
+			solicitud.setMontoInicial(montoi);
+			solicitud.setMontoInicial(montof);
+			solicitud.setFechaInicio(fechai);
+			solicitud.setFechaFin(fechaf);
+			solicitud.setEstado("solicitado");
+			solicitud.setPeriodo(periodo);
+			solicitud.setPagoDiario(pagod);
+			//pasarle el id del logueado
+			solicitud.getUsuarioRegistro();
+			serviceSolicitud.registrar(solicitud);
+			redirect.addFlashAttribute("MENSAJE","Solicitud registrada");
 
 		} catch (Exception e) {
 			e.printStackTrace();
