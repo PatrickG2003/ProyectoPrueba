@@ -43,6 +43,16 @@ public class Usuario implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="sector_idsector")
 	private Sector sector;
+	@Column(name = "id_usuario_registra")
+	private Integer idUsuarioRegistra;
+
+	public Integer getIdUsuarioRegistra() {
+		return idUsuarioRegistra;
+	}
+
+	public void setIdUsuarioRegistra(Integer idUsuarioRegistra) {
+		this.idUsuarioRegistra = idUsuarioRegistra;
+	}
 
 	public Integer getId() {
 		return id;
