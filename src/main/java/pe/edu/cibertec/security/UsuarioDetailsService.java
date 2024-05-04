@@ -21,7 +21,7 @@ import pe.edu.cibertec.entity.Usuario;
 public class UsuarioDetailsService implements UserDetailsService{
 	@Autowired
 	private UsuarioService servicioUsu;
-	
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		UserDetails bean=null;

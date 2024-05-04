@@ -9,7 +9,6 @@ import pe.edu.cibertec.dao.RolRepository;
 import pe.edu.cibertec.entity.Rol;
 
 
-
 @Service
 public class RolService {
 	@Autowired

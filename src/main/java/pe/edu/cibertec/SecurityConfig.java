@@ -15,31 +15,31 @@ import pe.edu.cibertec.security.UsuarioDetailsService;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-	
+
 	@Bean
 	public BCryptPasswordEncoder encriptar() {
 		return new BCryptPasswordEncoder();
 	}
-	
-	
-	
+
+
+
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
-		.authorizeHttpRequests((requests) -> requests
-				.requestMatchers("/sesion/**","resources/**").permitAll()
-				.requestMatchers("/inversionista/**","/jefe/**","/prestamista/**","/prestatario/**").authenticated()
-		)
-		.formLogin((form) -> form
-			.loginPage("/sesion/login").defaultSuccessUrl("/sesion/principal")
-			.permitAll()
-		)
-		.logout((logout) -> logout.permitAll());
+				.authorizeHttpRequests((requests) -> requests
+						.requestMatchers("/sesion/**","resources/**").permitAll()
+						.requestMatchers("/inversionista/**","/jefe/**","/prestamista/**","/prestatario/**").authenticated()
+				)
+				.formLogin((form) -> form
+						.loginPage("/sesion/login").defaultSuccessUrl("/sesion/principal")
+						.permitAll()
+				)
+				.logout((logout) -> logout.permitAll());
 
-	return http.build();
+		return http.build();
 	}
-	
-	
+
+
 	@Bean
 	public UserDetailsService userDetailsService() {
 		return new UsuarioDetailsService();
@@ -51,9 +51,9 @@ public class SecurityConfig {
 		dao.setPasswordEncoder(encriptar());
 		return dao;
 	}
-	
-	
-	
+
+
+
 }
 
 

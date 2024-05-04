@@ -13,17 +13,17 @@ import pe.edu.cibertec.entity.Usuario;
 
 @Service
 public class UsuarioService {
-	
+
 	@Autowired
 	private UsuarioRepository repo;
-	
+
 	public Usuario sesionUsuario(String vLogin) {
 		return repo.iniciarSesion(vLogin);
 	}
 	public List<Enlace> enlacesDelUsuario(String desRol){
 		return repo.traerEnlacesDelUsuario(desRol);
 	}
-	
+
 	public void registrar(Usuario m) {
 		repo.save(m);
 	}
@@ -42,5 +42,5 @@ public class UsuarioService {
 	public List<Usuario> listarUsuarioporRol(Integer codRol){
 		return repo.listarUsuarioporRol(codRol);
 	}
-	
+
 }

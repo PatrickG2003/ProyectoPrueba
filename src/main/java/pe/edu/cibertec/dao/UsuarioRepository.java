@@ -12,15 +12,15 @@ import pe.edu.cibertec.entity.Usuario;
 
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
-	
-		@Query("select u from Usuario u where u.username=?1")
-		public Usuario iniciarSesion(String vLogin);
-		
-		
-		
-		@Query("select e from RolEnlace re join re.enlace e where re.rol.descripcion=?1")
-		public List<Enlace> traerEnlacesDelUsuario(String desRol);
-		
-		@Query("select u from Usuario u where u.rol.codigo=?1 ")
-		public List<Usuario> listarUsuarioporRol(int codRol);
+
+	@Query("select u from Usuario u where u.username=?1")
+	public Usuario iniciarSesion(String vLogin);
+
+
+
+	@Query("select e from RolEnlace re join re.enlace e where re.rol.descripcion=?1")
+	public List<Enlace> traerEnlacesDelUsuario(String desRol);
+
+	@Query("select u from Usuario u where u.rol.codigo=?1 ")
+	public List<Usuario> listarUsuarioporRol(int codRol);
 }
