@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import jakarta.servlet.http.HttpServletRequest;
 import pe.edu.cibertec.entity.Enlace;
 import pe.edu.cibertec.entity.Rol;
+import pe.edu.cibertec.entity.Sector;
 import pe.edu.cibertec.entity.Usuario;
 import pe.edu.cibertec.service.RolService;
 import pe.edu.cibertec.service.UsuarioService;
@@ -82,7 +83,11 @@ public class UsuarioController {
 			
 			Rol rol=new Rol();
 			rol.setCodigo(4);
+			Sector sector=new Sector();
+			sector.setId(1);
+
 			usuario.setRol(rol);
+			usuario.setSector(sector);
 		
 			servicioUsu.registrar(usuario);
 			

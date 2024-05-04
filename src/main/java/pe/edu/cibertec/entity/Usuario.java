@@ -36,9 +36,6 @@ public class Usuario implements Serializable {
 	@Column(name = "telefono")
     private String telefono;
 
-	/*@ManyToOne
-	@JoinColumn(name = "id_usuario")
-	private Usuario usuarioPadre;*/
 	@ManyToOne
 	@JoinColumn(name="idrol")
 	private Rol rol;
@@ -109,6 +106,13 @@ public class Usuario implements Serializable {
 
 	public void setRol(Rol rol) {
 		this.rol = rol;
+	}
+	public Sector getSector() {
+		return sector;
+	}
+
+	public void setSector(Sector sector) {
+		this.sector = sector;
 	}
 
 	

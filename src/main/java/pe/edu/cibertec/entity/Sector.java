@@ -22,7 +22,14 @@ public class Sector {
 	private Integer id;
 	@Column(name = "nombre")
 	private String nombre;
-	
+
+	public Sector(Integer id) {
+		this.id = id;
+	}
+
+	public Sector() {
+	}
+
 	public Integer getId() {
 		return id;
 	}
