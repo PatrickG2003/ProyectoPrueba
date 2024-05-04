@@ -1,0 +1,276 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/principal.css" />
+    <!-- Font Awesome -->
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  rel="stylesheet"
+/>
+<!-- Google Fonts -->
+<link
+  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+  rel="stylesheet"
+/>
+
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.css"
+  rel="stylesheet"
+/>
+
+
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js"
+></script>
+    <script src="https://kit.fontawesome.com/23f63af3b1.js" crossorigin="anonymous"></script>
+    <!--Cambio-->
+    <title>Pagina Inversionista</title>
+  </head>
+  
+  <style>
+
+#btn img{
+    width:225px;
+    padding:12px;
+    background-color: rgba(255, 255, 255, 0.857);
+}
+#btn{
+    display: flex;
+    font-size: 24px;
+    list-style: none;
+    border-style: solid;
+    background-color: white;
+    border-color: rgba(212, 212, 212, 0.495);
+}
+#btn li a{
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+    color: black;
+    text-decoration: none;
+    padding: 29px;
+    display: block;
+    background-color: rgba(255, 255, 255, 0.857);
+    margin: auto;
+}
+#btn li ul{
+    position: absolute;
+    display: none;  
+    transform: translateX(-17%) translateY(1%);
+    list-style: none;
+    font-size: 15px;
+
+}
+#btn li ul li a{
+    justify-content: center;
+    
+}
+#btn li:hover >ul{
+    display: block;
+}
+/*principal*/
+
+.hero {
+  background-image:url("../resources/bg-main.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom center;
+  height: 100vh;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  margin-bottom: 20px;
+  z-index: -2;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: -1;
+}
+
+.hero h1 {
+  font-size: 46px;
+  margin: -20px 0 20px;
+}
+
+.hero p {
+  font-size: 20px;
+  letter-spacing: 1px;
+}
+
+.content h2,
+.content h3 {
+  font-size: 150%;
+  margin: 20px 0;
+}
+
+.content p {
+  color: #555;
+  line-height: 30px;
+  letter-spacing: 1.2px;
+}
+	  
+  </style>
+  
+  <body>
+   	<div th:replace="~{nav :: cabecera}"></div>
+
+
+    <div class="hero" style="background: url(https://manybackgrounds.com/images/hd/vibrant-beach-sunset-14jnsywsd1br1e49.webp);">
+      <div class="container">
+
+        
+        <p>Registra, elimina, lista y actualiza al Jefe de Prestamista
+           <br>Visualiza el Sistema</p>
+      </div>
+    </div>
+
+    <section class="container content">
+      <h2>Nota 1</h2>
+      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ratione dolorem voluptates eveniet tempora ut cupiditate magnam, sapiente, hic quo in ipsum iste soluta eaque perferendis nihil recusandae dolore officia aperiam corporis similique. Facilis quos tempore labore totam! Consectetur molestiae iusto ducimus error reiciendis aspernatur dolor, modi dolorem sit architecto, voluptate magni sunt unde est quas? Voluptates a dolorum voluptatum quo perferendis aut sit. Aspernatur libero laboriosam ab eligendi omnis delectus earum labore, placeat officiis sint illum rem voluptas ipsum repellendus iste eius recusandae quae excepturi facere, iure rerum sequi? Illum velit delectus dicta et iste dolorum obcaecati minus odio eligendi!</p>
+
+      <h3>Nota 2</h3>
+      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Pariatur provident nostrum possimus inventore nisi laboriosam consequatur modi nulla eos, commodi, omnis distinctio! Maxime distinctio impedit provident, voluptates illo odio nostrum minima beatae similique a sint sapiente voluptatum atque optio illum est! Tenetur tempora doloremque quae iste aperiam hic cumque repellat?</p>
+    </section>
+
+
+<footer class="text-center text-lg-start bg-body-tertiary text-muted">
+  
+  <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+    <div class="me-5 d-none d-lg-block">
+
+    </div>
+    <div>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-google"></i>
+      </a>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-linkedin"></i>
+      </a>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+
+  </section>
+
+
+
+  <section class="">
+    <div class="container text-center text-md-start mt-5">
+
+      <div class="row mt-3">
+
+        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+
+          <h6 class="text-uppercase fw-bold mb-4">
+            <i class="fas fa-gem me-3"></i>CIBERTEC
+          </h6>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos ad sequi natus id, temporibus eius, 
+            fugit consequatur nihil illum eos debitis suscipit. Alias, libero mollitia molestias voluptates asperiores eum veniam!
+          </p>
+        </div>
+        
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+          
+          <h6 class="text-uppercase fw-bold mb-4">
+            Desarrollo
+          </h6>
+          <p>
+            <a href="#!" class="text-reset">SPRINGBOOT</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">MYSQL</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">DOCKER</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">GITHUB</a>
+          </p>
+        </div>
+        
+        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+          
+          <h6 class="text-uppercase fw-bold mb-4">
+            Utilidades
+          </h6>
+          <p>
+            <a href="#!" class="text-reset">Utlidad 1</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Utlidad 2</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Utlidad 3</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Utlidad 4</a>
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">Contacto</h6>
+          <p><i class="fas fa-home me-3"></i> Av Larco Nro NNN</p>
+          <p>
+            <i class="fas fa-envelope me-3"></i>
+            mumnimira@miraflores.gob.pe
+          </p>
+          <p><i class="fas fa-phone me-3"></i> + 51 985 658 524</p>
+          <p><i class="fas fa-print me-3"></i> + 01 547 5487</p>
+        </div>
+        
+
+      </div>
+      
+    </div>
+  </section>
+  
+
+  
+  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+    © 2023 Copyright:
+    <a class="text-reset fw-bold" href="https://mdbootstrap.com/">DAWI LUNES</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+</section>
+    <script>
+        const nav = document.querySelector('.nav')
+window.addEventListener('scroll', fixNav)
+
+function fixNav() {
+    if(window.scrollY > nav.offsetHeight + 150) {
+        nav.classList.add('active')
+    } else {
+        nav.classList.remove('active')
+    }
+}
+    </script>
+  </body>
+</html>

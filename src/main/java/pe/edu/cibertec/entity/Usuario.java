@@ -2,6 +2,8 @@ package pe.edu.cibertec.entity;
 
 
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
@@ -15,7 +17,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_usuario")
-public class Usuario {
+public class Usuario implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,12 +36,16 @@ public class Usuario {
 	@Column(name = "telefono")
     private String telefono;
 
-
+	/*@ManyToOne
+	@JoinColumn(name = "id_usuario")
+	private Usuario usuarioPadre;*/
 	@ManyToOne
 	@JoinColumn(name="idrol")
 	private Rol rol;
 
-
+	@ManyToOne
+	@JoinColumn(name="sector_idsector")
+	private Sector sector;
 
 	public Integer getId() {
 		return id;
