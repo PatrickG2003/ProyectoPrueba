@@ -15,9 +15,9 @@ public class Solicitud {
     @Column(name = "idsolicitud")
     private Integer id;
     @Column(name = "montoinicial")
-    private Integer montoInicial;
+    private Double montoInicial;
     @Column(name = "montofinal")
-    private Integer montoFinal;
+    private Double montoFinal;
     @Column(name = "estado")
     private String estado;
     @Temporal(TemporalType.DATE)
@@ -50,19 +50,19 @@ public class Solicitud {
         this.id = id;
     }
 
-    public Integer getMontoInicial() {
+    public Double getMontoInicial() {
         return montoInicial;
     }
 
-    public void setMontoInicial(Integer montoInicial) {
+    public void setMontoInicial(Double montoInicial) {
         this.montoInicial = montoInicial;
     }
 
-    public Integer getMontoFinal() {
+    public Double getMontoFinal() {
         return montoFinal;
     }
 
-    public void setMontoFinal(Integer montoFinal) {
+    public void setMontoFinal(Double montoFinal) {
         this.montoFinal = montoFinal;
     }
 

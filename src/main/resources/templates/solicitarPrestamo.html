@@ -167,6 +167,7 @@
 <div class="container">
     <form id="formularioSolicitud" th:action="@{registrarSolicitud}" method="POST">
         <div class="form-group has-feedback col-md-12">
+            <label for="exampleInputEmail1"><b>Codigo</b></label><br>
             <input type="hidden" id="idCodigo" class="form-control" name="id" value="0">
         </div>
         <div class="row mb-4">
@@ -179,7 +180,7 @@
             <div class="col-md-3">
                 <div>
                     <label class="form-label" for=""><strong>Fecha Inicio</strong></label>
-                    <input type="date" id="" class="form-control" name="fechainicio" />
+                    <input type="date" id="" class="form-control" name="fechaInicio" />
                 </div>
             </div>
             <div class="col-md-3">
@@ -193,25 +194,31 @@
             <div class="col-md-2">
                 <div>
                     <label class="form-label" for=""><strong> Monto Final</strong></label>
-                    <input type="text" id="" class="form-control" name="montofinal" disabled />
+                    <input type="number" id="" class="form-control" name="montofinal" readonly  />
                 </div>
             </div>
             <div class="col-md-3">
                 <div>
                     <label class="form-label" for=""><strong>Fecha Fin</strong></label>
-                    <input type="date" id="" class="form-control" name="fechafin" disabled/>
+                    <input type="date" id="" class="form-control" name="fechaFin" readonly  />
                 </div>
             </div>
             <div class="col-md-2">
                 <div>
                     <label class="form-label" for=""><strong>Interes</strong></label>
-                    <input type="text" id="" class="form-control" name="interes" disabled />
+                    <input type="text" id="" class="form-control" name="interes" readonly  />
                 </div>
             </div>
             <div class="col-md-2">
                 <div>
                     <label class="form-label" for=""><strong>Pago Diario</strong></label>
-                    <input type="text" id="" class="form-control" name="pagodiario" disabled />
+                    <input type="text" id="" class="form-control" name="pagodiario" readonly  />
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div>
+                    <label class="form-label" for=""><strong>Periodo</strong></label>
+                    <input type="text" id="" class="form-control" name="periodo" readonly  />
                 </div>
             </div>
         </div>
@@ -261,6 +268,7 @@
     </div>
     <!-- Copyright -->
 </footer>
+</section>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const botonCalcular = document.getElementById("botonCalcular");
@@ -268,14 +276,15 @@
             event.preventDefault(); // Prevenir el comportamiento por defecto del botón
 
             const monto = parseFloat(document.querySelector("[name='montoinicial']").value);
-            const fechaInicio = new Date(document.querySelector("[name='fechainicio']").value);
+            const fechaInicio = new Date(document.querySelector("[name='fechaInicio']").value);
 
             const resultado = calcularDatos(fechaInicio, monto);
 
             document.querySelector("[name='montofinal']").value = resultado.montoTotal.toFixed(2);
-            document.querySelector("[name='fechafin']").value = resultado.fechaFin.toISOString().slice(0,10);
+            document.querySelector("[name='fechaFin']").value = resultado.fechaFin.toISOString().slice(0,10);
             document.querySelector("[name='interes']").value = resultado.porcentajeInteres + "%";
             document.querySelector("[name='pagodiario']").value = resultado.pagoDiario.toFixed(2);
+            document.querySelector("[name='periodo']").value = "DIARIO";
         });
     });
 
