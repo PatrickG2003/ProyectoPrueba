@@ -58,7 +58,7 @@ public class PrestatarioController {
 	}
 
 	@RequestMapping("/registrarSolicitud")
-	public String registrarS(
+	public String registrarSolicitud(
 			@RequestParam("montoinicial") Integer montoi,
 			@RequestParam("fechaInicio")@DateTimeFormat(pattern = "yyyy-MM-dd") Date fechai,
 			@RequestParam("fechaFin")@DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaf,
