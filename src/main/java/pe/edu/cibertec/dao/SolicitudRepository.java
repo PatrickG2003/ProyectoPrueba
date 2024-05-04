@@ -10,12 +10,15 @@ import pe.edu.cibertec.entity.Solicitud;
 
 public interface SolicitudRepository extends JpaRepository<Solicitud, Integer> {
 
-	@Query("select s from Solicitud s where s.usuarioRegistro.idUsuarioRegistra=?1 ")
-	public List<Solicitud> listaSolicitudesPorPrestatariosdePrestamista(int d);
+	@Query("select s from Solicitud s where s.usuarioRegistro.sector.id=?1 ")
+	public List<Solicitud> listaSolicitudesPorSector(int d);
 	
 	
 	@Modifying
 	@Query("update Solicitud s SET s.estado = 'APROBADO' WHERE s.id = ?1")
 	public void actualizarSolicitudAprobado(int id);
 
+	@Modifying
+	@Query("update Solicitud s SET s.estado = 'DESAPROBADO' WHERE s.id = ?1")
+	public void actualizarSolicitudDesaprobado(int id);
 }

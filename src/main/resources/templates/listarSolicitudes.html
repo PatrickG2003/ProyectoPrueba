@@ -143,7 +143,7 @@
 <div th:replace="~{nav :: cabecera}"></div>
 <div class="container">
 
-	<h3 class="text-center mt-4">LISTA DE JEFES</h3>
+	<h3 class="text-center mt-4">SOLICITUDES DE PRESTATARIOS</h3>
 
 
 	<div class=" mt-2">
@@ -161,6 +161,7 @@
 
 				<th scope="col">Pago Diario</th>
 				<th scope="col">Usuario</th>
+				<th scope="col">Sector</th>
 
 				<th scope="col"></th>
 				<th scope="col"></th>
@@ -179,77 +180,18 @@
 				<td th:text="${row.periodo}"></td>
 				<td th:text="${row.pagoDiario}"></td>
 				<td th:text="${row.usuarioRegistro.nombre}"></td>
+				<td th:text="${row.usuarioRegistro.sector.nombre}"></td>
 
-				<td>  <a th:href="@{/prestamista/actualizarEstadoSolicitud(codigo=${row.id})}" class="btn btn-danger btn-eliminar" onclick="return confirm('¿Está seguro de aprobar esta solicitud?');">Actualizar</a> </td>
-				<td><a class="btn btn-info btn-editar" data-toggle="modal" data-target="#modalPrestamista" id="btn-editar" ><i class="far fa-edit"></i></a></td>
+				<td>  <a th:href="@{/prestamista/desaprobarEstadoSolicitud(codigo=${row.id})}" class="btn btn-danger btn-eliminar" onclick="return confirm('¿Está seguro de Desaprobar esta solicitud?');">DESAPROBAR</a> </td>
+				<td>  <a th:href="@{/prestamista/aprobarEstadoSolicitud(codigo=${row.id})}" class="btn btn-info btn-editar" onclick="return confirm('¿Está seguro de Aprobar esta solicitud?');">APROBAR</a> </td>
+
 
 			<tbody>
 		</table>
 	</div>
 
 
-	<!-- begin #modal-dialog : MODAL MEDICAMENTO-->
 
-	<div class="modal fade" id="modalPrestamista" data-backdrop="static"
-		 data-keyboard="false" tabindex="-1"
-		 aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered modal-login modal-lg" >
-			<div class="modal-content">
-				<div class="modal-header bg-blue-darker">
-					<h4 class="modal-title text-black">Jefe</h4>
-				</div>
-				<div class="modal-body">
-
-					<form method="POST" id="idRegistra" th:action="@{grabarJefe}">
-
-						<div class="container">
-							<div class="row">
-								<div class="form-group has-feedback col-md-12">
-									<input type="hidden" id="idCodigo" class="idCodigo form-control" name="id" >
-								</div>
-								<div class="form-group has-feedback col-md-12">
-									<label for="exampleInputEmail1"><b>Nombre</b></label><br>
-
-									<i class="fas fa-file-signature form-control-feedback2"></i>
-									<input type="text" class="form-control" id="idNombre" placeholder="Ingresar nombre" name="nombre">
-								</div>
-								<div class="form-group has-feedback col-md-12">
-									<label for="exampleInputEmail1"><b>Apellido</b></label><br>
-									<input type="text" class="form-control" id="idApellido" placeholder="Ingresar apellido" name="apellido">
-								</div>
-								<div class="form-group has-feedback col-md-4">
-									<label for="exampleInputEmail1"><b>Email</b></label><br>
-									<i class="fas fa-pen-fancy form-control-feedback2"></i>
-									<input type="text" class="form-control" id="idEmail" placeholder="Ingresar e-mail" name="email">
-								</div>
-								<div class="form-group has-feedback col-md-4">
-									<label for="exampleInputEmail1"><b>Telefono</b></label><br>
-									<i class="fas fa-money-check-alt form-control-feedback2"></i>
-									<input type="text" class="form-control" id="idTelefono" placeholder="Ingresar telefono" name="telefono">
-								</div>
-
-								<div class="form-group has-feedback col-md-4">
-									<label for="exampleInputEmail1"><b>Usuario</b></label><br>
-									<i class="fas fa-money-check-alt form-control-feedback2"></i>
-									<input type="text" class="form-control" id="idUsuario" placeholder="Ingresar usuario" name="username">
-								</div>
-
-								<div class="form-group has-feedback col-md-4">
-									<input type="hidden" class="form-control" id="idContraseña" placeholder="Ingresar contraseña" name="password">
-								</div>
-
-							</div>
-						</div>
-						<div class="col-md-12 text-center mt-4">
-							<button type="submit" id="btn-grabar" class="btn btn-primary"><i class="fas fa-save"></i> Actualizar</button>
-							<button type="button" id="btn-cerrar" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-undo-alt"></i> Cancelar</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- FIN Modal MEDICAMENTO-->
 
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

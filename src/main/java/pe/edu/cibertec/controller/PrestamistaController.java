@@ -29,7 +29,7 @@ import pe.edu.cibertec.service.UsuarioService;
 
 @Controller
 @RequestMapping("/prestamista")
-@SessionAttributes({"ENLACES","DATOSDELUSUARIO","IDUSUARIO"})
+@SessionAttributes({"ENLACES","DATOSDELUSUARIO","IDUSUARIO","IDSECTORUSUARIO"})
 
 public class PrestamistaController {
 	@Autowired
@@ -57,9 +57,11 @@ public class PrestamistaController {
 		Usuario usu=servicioUsu.sesionUsuario(auth.getName());
 
 		//atributo
+		model.addAttribute("IDSECTORUSUARIO", usu.getSector());
 		model.addAttribute("ENLACES",enlaces);
 		model.addAttribute("DATOSDELUSUARIO",usu.getNombre()+" "+ usu.getApellido());
 		model.addAttribute("IDUSUARIO", usu.getId());
+
 		return "principal";
 	}
 	
@@ -75,7 +77,7 @@ public class PrestamistaController {
 		return "listarPrestatarios";
 	}
 	@RequestMapping("/grabarPrestatario")
-	public String grabarPrestatarios(
+	public String grabarPrestatarios(Model model,
 						 @RequestParam("id") Integer id,
 						 @RequestParam("nombre") String nom,
 						 @RequestParam("apellido") String ape,
@@ -83,7 +85,6 @@ public class PrestamistaController {
 						 @RequestParam("telefono") String tel,
 						 @RequestParam("username") String use,
 						 @RequestParam("password") String pas,
-						 @RequestParam("sector") int sectorId,
 						 RedirectAttributes redirect,HttpServletRequest request) {		
 		try {
 			String var;
@@ -94,10 +95,16 @@ public class PrestamistaController {
 			usu.setEmail(ema);
 			usu.setTelefono(tel);
 			usu.setUsername(use);
+			usu.setIdUsuarioRegistra((Integer) model.getAttribute("IDUSUARIO"));
+
 			
-			Sector sector = new Sector();
-	        sector.setId(sectorId);
-	        usu.setSector(sector);
+			Usuario usuejemplo =servicioUsu.buscarPorID((Integer) model.getAttribute("IDUSUARIO"));
+			int idsectorejemplo = usuejemplo.getSector().getId();
+		            Sector sector = new Sector();
+		            sector.setId(idsectorejemplo);
+		            
+		            usu.setSector(sector);
+		       
 
 			Rol r=new Rol();
 			r.setCodigo(4);
@@ -150,19 +157,22 @@ public class PrestamistaController {
 	            e.printStackTrace();
 	            redirect.addFlashAttribute("ERROR", "Error al eliminar el usuario");
 	        }		
-		 return "redirect:/sesion/principal";
+		 return "redirect:/prestamista/listarPrestatarios";
 	}
 	
 	@RequestMapping("/listarSolicitudes")
 	public String listarSolicitudes(Model model){
-		model.addAttribute("Solicitudes",servicioSol.listaSolicitudesPorPrestatariosdePrestamista((Integer) model.getAttribute("IDUSUARIO")));
+		Usuario usuejemplo =servicioUsu.buscarPorID((Integer) model.getAttribute("IDUSUARIO"));
+		int idsectorejemplo = usuejemplo.getSector().getId();
+		
+		model.addAttribute("Solicitudes",servicioSol.listaSolicitudesPorPrestatariosdePrestamista(idsectorejemplo));
 
 		return "listarSolicitudes";
 	}
 	
 	@Transactional
-	@RequestMapping("/actualizarEstadoSolicitud")
-	public String actualizarSolicitud(@RequestParam("codigo") Integer cod,RedirectAttributes redirect) {
+	@RequestMapping("/aprobarEstadoSolicitud")
+	public String aprobarEstadoSolicitud(@RequestParam("codigo") Integer cod,RedirectAttributes redirect) {
 		 
 		 
 	            servicioSol.aprobarSolicitud(cod);
@@ -170,5 +180,13 @@ public class PrestamistaController {
 		 return "redirect:/prestamista/listarSolicitudes";
 	}
 	
-	
+	@Transactional
+	@RequestMapping("/desaprobarEstadoSolicitud")
+	public String desaprobarEstadoSolicitud(@RequestParam("codigo") Integer cod,RedirectAttributes redirect) {
+		 
+		 
+	            servicioSol.desaprobarSolicitud(cod);
+	       	
+		 return "redirect:/prestamista/listarSolicitudes";
+	}
 }
