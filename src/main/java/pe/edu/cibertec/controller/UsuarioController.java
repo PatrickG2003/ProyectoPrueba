@@ -66,8 +66,6 @@ public class UsuarioController {
 						 @RequestParam("correo") String cor,
 						 @RequestParam("usuario") String usu,
 						 @RequestParam("password") String pas,
-						 
-
 						 RedirectAttributes redirect,HttpServletRequest request) {		
 		try {
 			

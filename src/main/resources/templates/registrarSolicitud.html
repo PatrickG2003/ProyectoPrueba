@@ -1,0 +1,210 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/principal.css" />
+    <!-- Font Awesome -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+            rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+            rel="stylesheet"
+    />
+
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.css"
+            rel="stylesheet"
+    />
+
+    <link rel="icon" href="https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs/295214478/original/1bb1a46d6f5d484658d5320d1525079900c12547/design-lion-head-logo-with-express-delivery.png" type="image/png">
+
+    <script
+            type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js"
+    ></script>
+    <script src="https://kit.fontawesome.com/23f63af3b1.js" crossorigin="anonymous"></script>
+    <title>Pagina Principal</title>
+</head>
+
+<style>
+
+    #btn img{
+        width:225px;
+        padding:12px;
+        background-color: rgba(255, 255, 255, 0.857);
+    }
+    #btn{
+        display: flex;
+        font-size: 24px;
+        list-style: none;
+        border-style: solid;
+        background-color: white;
+        border-color: rgba(212, 212, 212, 0.495);
+    }
+    #btn li a{
+        font-family: 'Courier New', Courier, monospace;
+        text-align: center;
+        color: black;
+        text-decoration: none;
+        padding: 29px;
+        display: block;
+        background-color: rgba(255, 255, 255, 0.857);
+        margin: auto;
+    }
+    #btn li ul{
+        position: absolute;
+        display: none;
+        transform: translateX(-17%) translateY(1%);
+        list-style: none;
+        font-size: 15px;
+
+    }
+    #btn li ul li a{
+        justify-content: center;
+
+    }
+    #btn li:hover >ul{
+        display: block;
+    }
+    /*principal*/
+
+    .hero {
+      background-image:url("../resources/bg-main.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: bottom center;
+      height: 100vh;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      margin-bottom: 20px;
+      z-index: -2;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: -1;
+    }
+
+    .hero h1 {
+      font-size: 46px;
+      margin: -20px 0 20px;
+    }
+
+    .hero p {
+      font-size: 20px;
+      letter-spacing: 1px;
+    }
+
+    .content h2,
+    .content h3 {
+      font-size: 150%;
+      margin: 20px 0;
+    }
+
+    .content p {
+      color: #555;
+      line-height: 30px;
+      letter-spacing: 1.2px;
+    }
+
+</style>
+
+<body>
+<div th:replace="~{nav :: cabecera}"></div>
+
+<div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0);">
+    <a class="text-reset fw-bold" >REGISTRAR SOLICITUD DE PRESTAMO</a>
+</div>
+<div class="container">
+    <form th:action="@{regitrarSolicitud}" method="POST">
+        <div class="form-group has-feedback col-md-12">
+            <label for="exampleInputEmail1"><b>Codigo</b></label><br>
+            <input type="hidden" id="idCodigo" class="form-control" name="id" value="0">
+        </div>
+        <div class="row mb-4">
+            <div class="col">
+                <div>
+                    <label class="form-label" for=""><strong> Monto</strong></label>
+                    <input type="text" id="" class="form-control" name="monto" />
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <label class="form-label" for=""><strong>Fecha Inicio</strong></label>
+                    <input type="date" id="" class="form-control" name="fechainicio" />
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <label class="form-label" for=""><strong>Periodo</strong></label>
+                    <input type="textbox" id="" class="form-control" name="periodo" />
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <input type="submit" class="btn btn-primary" value="Registrar"/>
+        </div>
+
+    </form>
+
+</div>
+
+
+<footer class="text-center text-lg-start bg-body-tertiary text-muted">
+
+    <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+        <div class="me-5 d-none d-lg-block">
+
+        </div>
+
+
+        <div>
+            <a href="" class="me-4 text-reset">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+                <i class="fab fa-google"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
+
+    </section>
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+        © 2024 Copyright:
+        <a class="text-reset fw-bold" href="https://mdbootstrap.com/">PROYECTO INTEGRADOR </a>
+    </div>
+    <!-- Copyright -->
+</footer>
+</section>
+<script>
+
+</script>
+</body>
+</html>

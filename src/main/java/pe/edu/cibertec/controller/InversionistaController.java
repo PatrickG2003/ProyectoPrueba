@@ -51,8 +51,7 @@ public class InversionistaController {
 		model.addAttribute("IDUSUARIO", usu.getId());
 		return "principal";
 	}
-	
-	//METODO PARA QUE EL EL INVERSIONISTA REGISTRE AL JEFE DE PRESTAMISTAS
+
 		@RequestMapping("/registrarJefe")
 		public String registrarJefe(Model model){
 			
@@ -106,10 +105,10 @@ public class InversionistaController {
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-						return "redirect:/inversionista/listarJefe";
+						return "redirect:/inversionista/listaJefe";
 		}
 		
-		@RequestMapping("/listarJefe")
+		@RequestMapping("/listaJefe")
 		public String listarSolicitudes(Model model){
 			model.addAttribute("Jefes",servicioUsu.listarUsuarioporRol(2));
 			
