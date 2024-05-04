@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -67,8 +68,15 @@ public class InversionistaController {
 				 @RequestParam("telefono") String tel,
 				 @RequestParam("username") String use,
 				 @RequestParam("password") String pas,
-				 RedirectAttributes redirect,HttpServletRequest request) {		
+				 RedirectAttributes redirect,HttpServletRequest request,Authentication auth) {
 						try {
+							// Obtener el usuario autenticado desde el objeto Authentication
+							UserDetails userDetails = (UserDetails) auth.getPrincipal();
+							String username = userDetails.getUsername();
+
+							// Utilizar el servicio de Usuario para obtener el usuario por nombre de usuario
+							Usuario usuario = servicioUsu.sesionUsuario(username);
+
 							String var;
 							var = encoder.encode(pas);
 							Usuario usu=new Usuario();
@@ -86,6 +94,7 @@ public class InversionistaController {
 							Sector sector=new Sector();
 							sector.setId(1);
 							usu.setSector(sector);
+							usu.setIdUsuarioRegistra(usuario.getId());
 
 							if(id ==0) {
 								usu.setPassword(var);
