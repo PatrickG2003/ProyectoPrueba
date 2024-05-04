@@ -173,7 +173,7 @@
 			<td th:text="${row.telefono}"></td>
 			<td th:text="${row.username}"></td>
 			<td th:text="${row.rol.descripcion}"></td>
-         	  <td>  <a th:href="@{/sesion/eliminarPorID(codigo=${row.id})}" class="btn btn-danger btn-eliminar" onclick="return confirm('¿Está seguro que desea eliminar este usuario?');"><i class="far fa-trash-alt">Eliminar</i></a> </td>
+         	  <td>  <a th:href="@{/sesion/eliminarPorID(codigo=${row.id})}" class="btn btn-danger btn-eliminar" onclick="return confirm('¿Está seguro que desea eliminar este usuario?');"><i class="far fa-trash-alt"></i></a> </td>
  			 <td><a class="btn btn-info btn-editar" data-toggle="modal" data-target="#modalPrestamista" id="btn-editar" ><i class="far fa-edit"></i></a></td>
 
       <tbody>
