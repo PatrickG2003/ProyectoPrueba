@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,7 @@ import pe.edu.cibertec.entity.Sector;
 import pe.edu.cibertec.entity.Usuario;
 import pe.edu.cibertec.service.RolService;
 import pe.edu.cibertec.service.SectorServiceImpl;
+import pe.edu.cibertec.service.SolicituServiceImpl;
 import pe.edu.cibertec.service.UsuarioService;
 
 @Controller
@@ -32,6 +34,10 @@ import pe.edu.cibertec.service.UsuarioService;
 public class PrestamistaController {
 	@Autowired
 	private UsuarioService servicioUsu;
+	
+	@Autowired
+	private SolicituServiceImpl servicioSol;
+	
 	
 	@Autowired
 	private RolService servicioRol;
@@ -147,7 +153,22 @@ public class PrestamistaController {
 		 return "redirect:/sesion/principal";
 	}
 	
+	@RequestMapping("/listarSolicitudes")
+	public String listarSolicitudes(Model model){
+		model.addAttribute("Solicitudes",servicioSol.listaSolicitudesPorPrestatariosdePrestamista((Integer) model.getAttribute("IDUSUARIO")));
+
+		return "listarSolicitudes";
+	}
 	
+	@Transactional
+	@RequestMapping("/actualizarEstadoSolicitud")
+	public String actualizarSolicitud(@RequestParam("codigo") Integer cod,RedirectAttributes redirect) {
+		 
+		 
+	            servicioSol.aprobarSolicitud(cod);
+	       	
+		 return "redirect:/prestamista/listarSolicitudes";
+	}
 	
 	
 }
