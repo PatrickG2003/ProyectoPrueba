@@ -128,7 +128,7 @@ public class InversionistaController {
 		}
 		@ModelAttribute("sectores")
 		public List<Sector> getSector(){
-			List<Sector> listaSector = sectorService.listarTodos();
+			List<Sector> listaSector = sectorService.listaSectorParaJefe();
 			return listaSector;
 		}
 		
