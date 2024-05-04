@@ -29,6 +29,11 @@ public class Sector {
 
 	public Sector() {
 	}
+	public Sector(Integer id, String nombre) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+	}
 
 	public Integer getId() {
 		return id;

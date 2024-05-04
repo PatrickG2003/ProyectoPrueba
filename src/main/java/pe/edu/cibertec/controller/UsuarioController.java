@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,6 +22,7 @@ import pe.edu.cibertec.entity.Rol;
 import pe.edu.cibertec.entity.Sector;
 import pe.edu.cibertec.entity.Usuario;
 import pe.edu.cibertec.service.RolService;
+import pe.edu.cibertec.service.SectorServiceImpl;
 import pe.edu.cibertec.service.UsuarioService;
 
 @Controller
@@ -34,6 +36,9 @@ public class UsuarioController {
 	private RolService servicioRol;
 	@Autowired
 	private BCryptPasswordEncoder encoder;
+	
+	@Autowired
+	private SectorServiceImpl sectorService;
 	
 	@RequestMapping("/login")
 	public String login() {
@@ -66,6 +71,7 @@ public class UsuarioController {
 						 @RequestParam("correo") String cor,
 						 @RequestParam("usuario") String usu,
 						 @RequestParam("password") String pas,
+						 @RequestParam("sector") int sectorId,
 						 RedirectAttributes redirect,HttpServletRequest request) {		
 		try {
 			
@@ -79,13 +85,17 @@ public class UsuarioController {
 			usuario.setUsername(usu);
 			usuario.setPassword(var);
 			
+			Sector sector = new Sector();
+	        sector.setId(sectorId);
+	        usuario.setSector(sector);
+	        
+	      	//Sector sector=new Sector();
+			//sector.setId(1);
+	        //usuario.setSector(sector);
 			Rol rol=new Rol();
-			rol.setCodigo(4);
-			Sector sector=new Sector();
-			sector.setId(1);
-
+			rol.setCodigo(4);			
 			usuario.setRol(rol);
-			usuario.setSector(sector);
+			
 		
 			servicioUsu.registrar(usuario);
 			
@@ -99,6 +109,11 @@ public class UsuarioController {
 	}
 	
 	
+	@ModelAttribute("sectores")
+	public List<Sector> getSector(){
+		List<Sector> listaSector = sectorService.listarTodos();
+		return listaSector;
+	}
 	
 
 	
