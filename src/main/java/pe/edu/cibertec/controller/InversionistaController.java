@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import jakarta.servlet.http.HttpServletRequest;
 import pe.edu.cibertec.entity.Enlace;
 import pe.edu.cibertec.entity.Rol;
+import pe.edu.cibertec.entity.Sector;
 import pe.edu.cibertec.entity.Usuario;
 import pe.edu.cibertec.service.RolService;
 import pe.edu.cibertec.service.UsuarioService;
@@ -82,16 +83,21 @@ public class InversionistaController {
 							Rol r=new Rol();
 							r.setCodigo(2);
 							usu.setRol(r);
+
+							Sector sector=new Sector();
+							sector.setId(1);
+							usu.setSector(sector);
+
 							if(id ==0) {
 								usu.setPassword(var);
 								servicioUsu.registrar(usu);
-								redirect.addFlashAttribute("MENSAJE","Prestamista registrado");
+								redirect.addFlashAttribute("MENSAJE","Jefe de Prestamista registrado");
 							}
 							else {
 								usu.setId(id);
 								usu.setPassword(pas);
 								servicioUsu.actualizar(usu);
-								redirect.addFlashAttribute("MENSAJE","Prestamista actualizado");
+								redirect.addFlashAttribute("MENSAJE","Jefe Prestamista actualizado");
 							}
 							
 							redirect.addFlashAttribute("MENSAJE","Prestamista registrado");
