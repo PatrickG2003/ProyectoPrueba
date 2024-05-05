@@ -31,6 +31,7 @@ import pe.edu.cibertec.service.UsuarioService;
 public class PrestatarioController {
 	@Autowired
 	private UsuarioService servicioUsu;
+	
 	@Autowired
 	private SolicituServiceImpl serviceSolicitud;
 	@Autowired
@@ -103,7 +104,7 @@ public class PrestatarioController {
 	}
 	@RequestMapping("/listarSolicitudes")
 	public String listarSolicitudes(Model model) {
-		// Obtener la autenticación del contexto de seguridad
+		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (auth != null && auth.getPrincipal() instanceof UserDetails) {
 			UserDetails userDetails = (UserDetails) auth.getPrincipal();

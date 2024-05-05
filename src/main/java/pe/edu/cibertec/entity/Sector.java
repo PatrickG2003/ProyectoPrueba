@@ -22,6 +22,19 @@ public class Sector {
 	private Integer id;
 	@Column(name = "nombre")
 	private String nombre;
+	@Column(name = "idsectorsuperior")
+	private int idsectorsuperior;
+	
+	
+	
+	
+	public int getIdsectorsuperior() {
+		return idsectorsuperior;
+	}
+
+	public void setIdsectorsuperior(int idsectorsuperior) {
+		this.idsectorsuperior = idsectorsuperior;
+	}
 
 	public Sector(Integer id) {
 		this.id = id;

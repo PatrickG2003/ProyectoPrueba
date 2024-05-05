@@ -20,14 +20,18 @@ public class SolicituServiceImpl {
     public List<Solicitud> listaSolicitudesPorPrestatariosdePrestamista(Integer cod) {
 		return repository.listaSolicitudesPorSector(cod);
 	}
+
     public void aprobarSolicitud(int cod) {
 		repository.actualizarSolicitudAprobado(cod);
 	}
+    
+    public List<Solicitud> listaSolicitudesPorUsuario(Integer cod) {
+  		return repository.listaSolicitudesPorUsuario(cod);
+  	}
+    
     public void desaprobarSolicitud(int cod) {
 		repository.actualizarSolicitudDesaprobado(cod);
 	}
-
-    public List<Solicitud> listaSolicitudesPorUsuario(Integer cod) {
-        return repository.listaSolicitudesPorUsuario(cod);
-    }
+  
+    
 }

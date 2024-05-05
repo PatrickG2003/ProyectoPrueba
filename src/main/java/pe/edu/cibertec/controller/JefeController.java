@@ -115,14 +115,23 @@ public class JefeController {
 
 	
 	@ModelAttribute("sectores")
-	public List<Sector> getSector(){
-		List<Sector> listaSector = sectorService.listarTodos();
+	public List<Sector> getSector(Model model){
+		
+		Usuario usuejemplo =servicioUsu.buscarPorID((Integer) model.getAttribute("IDUSUARIO"));
+		int idsectorejemplo = usuejemplo.getSector().getId();
+		
+		List<Sector> listaSector = sectorService.listaSectorParaPrestamista(idsectorejemplo);
 		return listaSector;
 	}
 	
 	@RequestMapping("/listarPrestamista")
 	public String listarPrestamista(Model model){
-		model.addAttribute("Prestamista",servicioUsu.listarUsuarioporRol(3));
+		
+		
+		Usuario usuejemplo =servicioUsu.buscarPorID((Integer) model.getAttribute("IDUSUARIO"));
+		int idsectorejemplo = usuejemplo.getSector().getId();
+		
+		model.addAttribute("Prestamista",servicioUsu.listarUsuarioporSectorGrande(idsectorejemplo));
 		
 		return "listarPrestamistas";
 	}

@@ -41,6 +41,14 @@ public class UsuarioService {
 	}
 	public List<Usuario> listarUsuarioporRol(Integer codRol){
 		return repo.listarUsuarioporRol(codRol);
-	}
-
+	}	
+	public List<Usuario> listarUsuarioporSectorGrande(int cod){
+		return repo.listaUsuarioPorSectorGrande(cod);
+	}	
+	public List<Usuario> listarUsuarioporSector(int cod){
+		return repo.listaUsuarioPorSector(cod);
+	}	
+	
+	
+	
 }
