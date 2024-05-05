@@ -17,4 +17,8 @@ public interface SectorRepository extends JpaRepository<Sector, Integer> {
 	@Query("select s from Sector s where s.idsectorsuperior=0 ")
 	public List<Sector> listaSectorParaJefes();
 	
+	@Query("SELECT s FROM Sector s WHERE s.idsectorsuperior != -1 AND s.idsectorsuperior != 0 AND s.idsectorsuperior != 1 ")
+	public List<Sector> listaSectorPrestatarios();
+	
+	
 }

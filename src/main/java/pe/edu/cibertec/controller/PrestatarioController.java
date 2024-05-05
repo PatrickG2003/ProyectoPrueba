@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -101,5 +102,27 @@ public class PrestatarioController {
 		}
 		return "redirect:/sesion/principal";
 	}
-	
+	@RequestMapping("/listarSolicitudes")
+	public String listarSolicitudes(Model model) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth != null && auth.getPrincipal() instanceof UserDetails) {
+			UserDetails userDetails = (UserDetails) auth.getPrincipal();
+			String username = userDetails.getUsername();
+			
+			Usuario usuario = servicioUsu.sesionUsuario(username);
+			
+			if (usuario != null) {
+				int usuarioId = usuario.getId();
+				
+				model.addAttribute("Solicitud", serviceSolicitud.listaSolicitudesPorUsuario(usuarioId));
+			} else {
+				model.addAttribute("error", "Usuario no encontrado");
+			}
+		} else {
+			model.addAttribute("error", "Detalles de usuario no disponibles");
+		}
+
+		return "verSolicitudes";
+	}
 }
