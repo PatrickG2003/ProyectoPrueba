@@ -142,108 +142,93 @@
 <body>
    	<div th:replace="~{nav :: cabecera}"></div>
 	<div class="container">
-		
 			<h3 class="text-center mt-4">LISTA DE PRESTAMISTAS</h3>
-			
-			
-			<div class=" mt-2">
-	<table class="table table-bordered border-secondary" id="tabla">
-  <thead class="table-dark ">
-    <tr>
-	  <th scope="col">Id</th>
-	  <th scope="col">Nombre</th>
-      <th scope="col">Apellido</th>
-      <th scope="col">Email</th>
-      <th scope="col">Telefono</th>
-      <th scope="col">Usuario</th>
-      
-      <th scope="col">Rol</th>
-      <th scope="col"></th>
-      <th scope="col"></th>
-
-    </tr>
-  </thead>
-  <tbody>
-   
-	<tr th:each="row:${Prestamista}">
-			<td th:text="${row.id}"></td>
-			<td th:text="${row.nombre}"></td>
-			<td th:text="${row.apellido}"></td>
-			<td th:text="${row.email}"></td>
-			<td th:text="${row.telefono}"></td>
-			<td th:text="${row.username}"></td>
-			<td th:text="${row.rol.descripcion}"></td>
-         	  <td>  <a th:href="@{/sesion/eliminarPorID(codigo=${row.id})}" class="btn btn-danger btn-eliminar" onclick="return confirm('¿Está seguro que desea eliminar este usuario?');"><i class="far fa-trash-alt">Eliminar</i></a> </td>
- 			 <td><a class="btn btn-info btn-editar" data-toggle="modal" data-target="#modalPrestamista" id="btn-editar" ><i class="far fa-edit"></i></a></td>
-
-      <tbody>
-	</table>
-			</div>
-		
-		
-			<!-- begin #modal-dialog : MODAL MEDICAMENTO-->
-			
-		 <div class="modal fade" id="modalPrestamista" data-backdrop="static" 
-							data-keyboard="false" tabindex="-1" 
-							aria-labelledby="exampleModalLabel" aria-hidden="true">
-						<div class="modal-dialog modal-dialog-centered modal-login modal-lg" >					
-							<div class="modal-content">
-								<div class="modal-header bg-blue-darker">
-									<h4 class="modal-title text-black">Prestamista</h4>
-								</div>
-								<div class="modal-body">
-								
-									<form method="POST" id="idRegistra" th:action="@{grabarPrestamista}">	
-										
-										<div class="container">
-											<div class="row">
-											<div class="form-group has-feedback col-md-12">
-											<input type="hidden" id="idCodigo" class="idCodigo form-control" name="id" >
-											</div>
-												<div class="form-group has-feedback col-md-12">
-														<label for="exampleInputEmail1"><b>Nombre</b></label><br>	
-															
-														<i class="fas fa-file-signature form-control-feedback2"></i>	
-														<input type="text" class="form-control" id="idNombre" placeholder="Ingresar nombre" name="nombre">																										
-												</div>
-												<div class="form-group has-feedback col-md-12">
-														<label for="exampleInputEmail1"><b>Apellido</b></label><br>
-														<input type="text" class="form-control" id="idApellido" placeholder="Ingresar apellido" name="apellido">																										
-												</div>
-												<div class="form-group has-feedback col-md-4">
-													<label for="exampleInputEmail1"><b>Email</b></label><br>	
-													<i class="fas fa-pen-fancy form-control-feedback2"></i>
-													<input type="text" class="form-control" id="idEmail" placeholder="Ingresar e-mail" name="email">	
-												</div>
-												<div class="form-group has-feedback col-md-4">
-													<label for="exampleInputEmail1"><b>Telefono</b></label><br>
-													<i class="fas fa-money-check-alt form-control-feedback2"></i>
-													<input type="text" class="form-control" id="idTelefono" placeholder="Ingresar telefono" name="telefono">														
-												</div>
-									
-									<div class="form-group has-feedback col-md-4">
-													<label for="exampleInputEmail1"><b>Usuario</b></label><br>
-													<i class="fas fa-money-check-alt form-control-feedback2"></i>
-													<input type="text" class="form-control" id="idUsuario" placeholder="Ingresar usuario" name="username">														
-												</div>
-												
-												<div class="form-group has-feedback col-md-4">
-													<input type="hidden" class="form-control" id="idContraseña" placeholder="Ingresar contraseña" name="password">														
-												</div>
-								
-											</div>
-										</div>								
-										<div class="col-md-12 text-center mt-4"> 										
+	<div class=" mt-2">
+		<table class="table border-secondary" id="tabla">
+			  <thead class="table ">
+					<tr>
+						  <th scope="col">Id</th>
+						  <th scope="col">Nombre</th>
+						  <th scope="col">Apellido</th>
+						  <th scope="col">Email</th>
+						  <th scope="col">Telefono</th>
+						  <th scope="col">Usuario</th>
+						  <th scope="col">Rol</th>
+						  <th scope="col"></th>
+						  <th scope="col"></th>
+					</tr>
+			  </thead>
+			  <tbody>
+					<tr th:each="row:${Prestamista}">
+						<td th:text="${row.id}"></td>
+						<td th:text="${row.nombre}"></td>
+						<td th:text="${row.apellido}"></td>
+						<td th:text="${row.email}"></td>
+						<td th:text="${row.telefono}"></td>
+						<td th:text="${row.username}"></td>
+						<td th:text="${row.rol.descripcion}"></td>
+						<td><a th:href="@{/sesion/eliminarPorID(codigo=${row.id})}" class="btn btn-danger btn-eliminar" onclick="return confirm('¿Está seguro que desea eliminar este usuario?');"><i class="far fa-trash-alt">Eliminar</i></a> </td>
+						<td><a class="btn btn-info btn-editar" data-toggle="modal" data-target="#modalPrestamista" id="btn-editar" ><i class="far fa-edit"></i></a></td>
+			  <tbody>
+		</table>
+	</div>
+		 <div class="modal fade" id="modalPrestamista" data-backdrop="static" data-keyboard="false" tabindex="-1" 							aria-labelledby="exampleModalLabel" aria-hidden="true">
+			 <div class="modal-dialog modal-dialog-centered modal-login modal-lg" >
+				 <div class="modal-content">
+					 <div class="modal-header bg-blue-darker">
+						 <h4 class="modal-title text-black">Prestamista</h4>
+					 </div>
+					 <div class="modal-body">
+						 <form method="POST" id="idRegistra" th:action="@{grabarPrestamista}">
+							 <div class="container">
+								 <div class="row">
+									 <div class="form-group has-feedback col-md-12">
+										 <input type="hidden" id="idCodigo" class="idCodigo form-control" name="id" >
+									 </div>
+									 <div class="form-group has-feedback col-md-12">
+										 <label for=""><b>Nombre</b></label><br>
+										 <i class="fas fa-file-signature form-control-feedback2"></i>
+										 <input type="text" class="form-control" id="idNombre" placeholder="Ingresar nombre" name="nombre">
+									 </div>
+									 <div class="form-group has-feedback col-md-6">
+										 <label for=""><b>DNI</b></label><br>
+										 <i class="fas fa-file-signature form-control-feedback2"></i>
+										 <input type="text" class="form-control" id="idDni" placeholder="Ingresar DNI" name="dni">
+									 </div>
+									 <div class="form-group has-feedback col-md-12">
+										 <label for=""><b>Apellido</b></label><br>
+										 <i class="fas fa-file-signature form-control-feedback2"></i>
+										 <input type="text" class="form-control" id="idApellido" placeholder="Ingresar apellido" name="apellido">
+									 </div>
+									 <div class="form-group has-feedback col-md-4">
+										 <label for=""><b>Email</b></label><br>
+										 <i class="fas fa-pen-fancy form-control-feedback2"></i>
+										 <input type="text" class="form-control" id="idEmail" placeholder="Ingresar e-mail" name="email">
+									 </div>
+									 <div class="form-group has-feedback col-md-4">
+										 <label for=""><b>Telefono</b></label><br>
+										 <i class="fas fa-money-check-alt form-control-feedback2"></i>
+										 <input type="text" class="form-control" id="idTelefono" placeholder="Ingresar telefono" name="telefono">
+									 </div>
+									 <div class="form-group has-feedback col-md-4">
+										 <label for=""><b>Usuario</b></label><br>
+										 <i class="fas fa-money-check-alt form-control-feedback2"></i>
+										 <input type="text" class="form-control" id="idUsuario" placeholder="Ingresar usuario" name="username">
+									 </div>
+									 <div class="form-group has-feedback col-md-4">
+										 <input type="hidden" class="form-control" id="idContraseña" placeholder="Ingresar contraseña" name="password">
+									 </div>
+								 </div>
+							 </div>
+							 <div class="col-md-12 text-center mt-4">
 											<button type="submit" id="btn-grabar" class="btn btn-primary"><i class="fas fa-save"></i> Actualizar</button>
 											<button type="button" id="btn-cerrar" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-undo-alt"></i> Cancelar</button>
 										</div> 																								
-									</form>
-								</div>
-							</div>
-						</div>
-		</div>
-		<!-- FIN Modal MEDICAMENTO-->	
-	
+						 </form>
+					 </div>
+				 </div>
+			 </div>
+		 </div>
 	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
@@ -256,7 +241,7 @@
 	<script src="https://kit.fontawesome.com/08aaa156fb.js" crossorigin="anonymous"></script>
 
 
-	<script>
+<script>
 		
 		$(document).on("click",".btn-editar",function(){
 			var cod;
@@ -280,136 +265,14 @@
 					
 					
 				})
-				
-			
-			
-			
-				
-				
-					
-		
-		
-		$('#tableMedicamentos').DataTable();
-		$(function() {
-			$('#usr1').datepicker({
-				'format': 'yyyy-mm-dd',
-				'autoclose': true
-			});
-	
-		});
-	</script>
-	
-	
-	  <script>
+</script>
+<script>
        $(document).on("click", ".btn-eliminar", function() {
-    var cod = $(this).closest("tr").find("td:first").text(); 
-    $.post("eliminarPorID", { id : cod }, function(response) {
-        console.log(response);
-    });
-});
-    </script>
-	
-	
-	
-	<script type="text/javascript">    
-	    $(document).ready(function(){     
-	
-	        $('#idRegistra').bootstrapValidator({     
-	        	feedbackIcons: {
-	                valid: 'glyphicon glyphicon-ok',
-	                invalid: 'glyphicon glyphicon-remove',
-	                validating: 'glyphicon glyphicon-refresh'
-	            },
-	        	 fields:{
-	        		 
-	        		 Nombres: {
-	     	    		selector:'#idNombre',   
-	                    validators: {    
-	                        notEmpty: {    
-	                            message: 'Ingrese nombre'    
-	                        }      
-	                    }    
-	                },   
-	                Descripcion: {
-	     	    		selector:'#idDescripcion',       
-	                    validators: {    
-	                        notEmpty: {    
-	                            message: 'Ingrese descripci�n'    
-	                        }      
-	                    }    
-	                },    
-	                Stock: {
-	     	    		selector:'#idStock',      
-	                    validators: {    
-	                        notEmpty: {    
-	                            message: 'Ingrese stock'    
-	                        },
-	                        regexp: {    
-	                            regexp: /^[0-9]{1,2}$/,    
-	                            message: 'Campo stock hasta dos cifras'    
-	                        },   
-	                    }    
-	                },
-	                precio: {
-	     	    		selector:'#idPrecio',      
-	                    validators: {    
-	                        notEmpty: {    
-	                            message: 'Ingrese precio'    
-	                        },
-	                        regexp: {    
-	                            regexp: /^(\d+|[0-9]+\.\d{1,2})$/,    
-	                            message: 'Campo precio real hasta dos decimales'    
-	                        },   
-	                    }    
-	                },       				
-	                fecha: {
-	     	    		//selector:'#usr1',   
-	                    validators: {    
-	                        notEmpty: {    
-	                            message: 'Seleccione fecha '    
-	                        },
-	                        date: {
-	                            format: 'YYYY-MM-DD',
-	                            message: 'The format is dd/mm/yyyy'
-	                        },
-	                    }    
-	                },
-	                Tipo: {
-	     	    		selector:'#idTipo',   
-	                    validators: {    
-	                        notEmpty: {    
-	                            message: 'Seleccione tipo medicamento'    
-	                        },					
-	                    }    
-	                } 
-	        	 }
-	        })
-			$('#usr1').on('changeDate', function(e) {	
-				$('#idRegistra').data('bootstrapValidator').updateStatus('fecha', 'VALIDATED');
-			})					
-	    });    
-	</script>   
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		var cod = $(this).closest("tr").find("td:first").text();
+		$.post("eliminarPorID", { id : cod }, function(response) {
+			console.log(response);
+			});
+		});
+</script>
 </body>
 </html>

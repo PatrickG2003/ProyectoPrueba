@@ -105,20 +105,15 @@ public class PrestatarioController {
 	public String listarSolicitudes(Model model) {
 		// Obtener la autenticación del contexto de seguridad
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-		// Comprobar si el principal es una instancia de UserDetails
 		if (auth != null && auth.getPrincipal() instanceof UserDetails) {
 			UserDetails userDetails = (UserDetails) auth.getPrincipal();
 			String username = userDetails.getUsername();
 
-			// Utilizar el servicio de Usuario para obtener el usuario por nombre de usuario
 			Usuario usuario = servicioUsu.sesionUsuario(username);
 
-			// Comprobar si el usuario no es null
 			if (usuario != null) {
 				int usuarioId = usuario.getId();
 
-				// Obtener las solicitudes para este usuario
 				model.addAttribute("Solicitud", serviceSolicitud.listaSolicitudesPorUsuario(usuarioId));
 			} else {
 				model.addAttribute("error", "Usuario no encontrado");

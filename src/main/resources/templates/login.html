@@ -170,14 +170,12 @@
 	<section>
 		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
-
 				<div class="modal-content ">
 					<div class="modal-header">
 						<h5 class="modal-title">Registro de Nuevos Usuarios</h5>
 						<button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-
 						<form th:action="@{registrarPrestatario}" method="POST">
 							<div class="row">
 								<div class="col-md-6">
@@ -185,7 +183,6 @@
 										<label for="nombre" class="col-form-label">Nombre:</label>
 										<input type="text" class="form-control" name="nombre" />
 									</div>
-
 									<div class="col-12">
 										<label for="correo" class="col-form-label">Correo:</label>
 										<input type="text" class="form-control" name="correo" />
@@ -194,8 +191,6 @@
 										<label for="password" class="col-form-label">Contraseña:</label>
 										<input type="password" class="form-control" name="password" />
 									</div>
-
-
 								</div>
 								<div class="col-md-6">
 									<div class="col-12">
@@ -210,11 +205,9 @@
 										<label for="usuario" class="col-form-label">Nombre de Usuario:</label>
 										<input type="text" class="form-control" name="usuario" />
 									</div>
-
 									<div class="col-12">
 										<label for="sector">Sector:</label>
 										<select id="sector" name="sector" required>
-
 											<option th:each="sector : ${sectores}" th:text="${sector.nombre}"
 												th:value="${sector.id}">
 											</option>
@@ -224,20 +217,13 @@
 										<input type="submit" class="btn btn-primary" value="Registrar" />
 									</div>
 								</div>
-
+							</div>
 						</form>
-
 					</div>
-
-
 				</div>
-
-
+			</div>
+		</div>
 	</section>
-
-
-
-
 	<div class="container">
 		<div class="backbox">
 			<div class="loginMsg">
@@ -249,10 +235,6 @@
 
 				</div>
 			</div>
-
-
-
-
 			<div class="frontbox">
 
 				<form method="post" th:action="@{/sesion/login}">
@@ -265,22 +247,11 @@
 						</div>
 						<p>Olvidaste la contraseña?</p>
 						<button type="submit">Ingresar</button>
+					</div>
 				</form>
-
-
 			</div>
-
-
 		</div>
 	</div>
-
-
-
-
-
-
-
-
 </body>
 
 </html>

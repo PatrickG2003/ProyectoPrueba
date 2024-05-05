@@ -143,12 +143,12 @@
 <div th:replace="~{nav :: cabecera}"></div>
 <div class="container">
 
-    <h3 class="text-center mt-4">SOLICITUDES DE PRESTAMO</h3>
+    <h3 class="text-center mt-4">TODAS MIS SOLICITUDES</h3>
 
 
     <div class=" mt-2">
-        <table class="table table-bordered border-secondary" id="tabla">
-            <thead class="table-dark ">
+        <table class="table border-secondary" id="tabla">
+            <thead class="table ">
             <tr>
                 <th scope="col">Id</th>
                 <th scope="col">Monto Inicial</th>
@@ -220,110 +220,7 @@
 
 
 
-
-
-
-
-
-    $('#tableMedicamentos').DataTable();
-    $(function() {
-        $('#usr1').datepicker({
-            'format': 'yyyy-mm-dd',
-            'autoclose': true
-        });
-
-    });
 </script>
 
-
-<script>
-    $(document).on("click", ".btn-eliminar", function() {
- var cod = $(this).closest("tr").find("td:first").text();
- $.post("eliminarPorID", { id : cod }, function(response) {
-     console.log(response);
- });
-});
-</script>
-
-
-
-<script type="text/javascript">
-    $(document).ready(function(){
-
-        $('#idRegistra').bootstrapValidator({
-            feedbackIcons: {
-                valid: 'glyphicon glyphicon-ok',
-                invalid: 'glyphicon glyphicon-remove',
-                validating: 'glyphicon glyphicon-refresh'
-            },
-             fields:{
-
-                 Nombres: {
-                     selector:'#idNombre',
-                    validators: {
-                        notEmpty: {
-                            message: 'Ingrese nombre'
-                        }
-                    }
-                },
-                Descripcion: {
-                     selector:'#idDescripcion',
-                    validators: {
-                        notEmpty: {
-                            message: 'Ingrese descripci�n'
-                        }
-                    }
-                },
-                Stock: {
-                     selector:'#idStock',
-                    validators: {
-                        notEmpty: {
-                            message: 'Ingrese stock'
-                        },
-                        regexp: {
-                            regexp: /^[0-9]{1,2}$/,
-                            message: 'Campo stock hasta dos cifras'
-                        },
-                    }
-                },
-                precio: {
-                     selector:'#idPrecio',
-                    validators: {
-                        notEmpty: {
-                            message: 'Ingrese precio'
-                        },
-                        regexp: {
-                            regexp: /^(\d+|[0-9]+\.\d{1,2})$/,
-                            message: 'Campo precio real hasta dos decimales'
-                        },
-                    }
-                },
-                fecha: {
-                     //selector:'#usr1',
-                    validators: {
-                        notEmpty: {
-                            message: 'Seleccione fecha '
-                        },
-                        date: {
-                            format: 'YYYY-MM-DD',
-                            message: 'The format is dd/mm/yyyy'
-                        },
-                    }
-                },
-                Tipo: {
-                     selector:'#idTipo',
-                    validators: {
-                        notEmpty: {
-                            message: 'Seleccione tipo medicamento'
-                        },
-                    }
-                }
-             }
-        })
-        $('#usr1').on('changeDate', function(e) {
-            $('#idRegistra').data('bootstrapValidator').updateStatus('fecha', 'VALIDATED');
-        })
-    });
-</script>
 </body>
 </html>
