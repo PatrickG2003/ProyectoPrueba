@@ -72,7 +72,9 @@ public class PrestamistaController {
 	}
 	@RequestMapping("/listarPrestatarios")
 	public String listarPrestatarios(Model model){
-		model.addAttribute("Prestatarios",servicioUsu.listarUsuarioporRol(4));
+		Usuario usuejemplo =servicioUsu.buscarPorID((Integer) model.getAttribute("IDUSUARIO"));
+		int idsectorejemplo = usuejemplo.getSector().getId();
+		model.addAttribute("Prestatarios",servicioUsu.listarUsuarioporSector(idsectorejemplo));
 		
 		return "listarPrestatarios";
 	}

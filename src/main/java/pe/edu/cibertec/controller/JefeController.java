@@ -126,7 +126,12 @@ public class JefeController {
 	
 	@RequestMapping("/listarPrestamista")
 	public String listarPrestamista(Model model){
-		model.addAttribute("Prestamista",servicioUsu.listarUsuarioporRol(3));
+		
+		
+		Usuario usuejemplo =servicioUsu.buscarPorID((Integer) model.getAttribute("IDUSUARIO"));
+		int idsectorejemplo = usuejemplo.getSector().getId();
+		
+		model.addAttribute("Prestamista",servicioUsu.listarUsuarioporSectorGrande(idsectorejemplo));
 		
 		return "listarPrestamistas";
 	}

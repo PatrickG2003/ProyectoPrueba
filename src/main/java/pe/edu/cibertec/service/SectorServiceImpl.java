@@ -22,5 +22,9 @@ public class SectorServiceImpl {
     public List<Sector> listaSectorParaJefe() {
 		return repository.listaSectorParaJefes();
 	}
+    public List<Sector> listaSectorParaPrestatario() {
+		return repository.listaSectorPrestatarios();
+	}
+    
     
 }
