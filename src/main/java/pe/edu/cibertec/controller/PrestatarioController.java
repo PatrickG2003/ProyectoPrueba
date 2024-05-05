@@ -109,12 +109,12 @@ public class PrestatarioController {
 		if (auth != null && auth.getPrincipal() instanceof UserDetails) {
 			UserDetails userDetails = (UserDetails) auth.getPrincipal();
 			String username = userDetails.getUsername();
-			
+
 			Usuario usuario = servicioUsu.sesionUsuario(username);
-			
+
 			if (usuario != null) {
 				int usuarioId = usuario.getId();
-				
+
 				model.addAttribute("Solicitud", serviceSolicitud.listaSolicitudesPorUsuario(usuarioId));
 			} else {
 				model.addAttribute("error", "Usuario no encontrado");
