@@ -27,5 +27,8 @@ public class SolicituServiceImpl {
     public void desaprobarSolicitud(int cod) {
 		repository.actualizarSolicitudDesaprobado(cod);
 	}
-    
+
+    public List<Solicitud> listaSolicitudesPorUsuario(Integer cod) {
+        return repository.listaSolicitudesPorUsuario(cod);
+    }
 }

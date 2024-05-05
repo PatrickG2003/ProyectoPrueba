@@ -21,4 +21,8 @@ public interface SolicitudRepository extends JpaRepository<Solicitud, Integer> {
 	@Modifying
 	@Query("update Solicitud s SET s.estado = 'DESAPROBADO' WHERE s.id = ?1")
 	public void actualizarSolicitudDesaprobado(int id);
+
+	@Query("SELECT s FROM Solicitud s WHERE s.usuarioRegistro.id = ?1")
+	public List<Solicitud> listaSolicitudesPorUsuario(Integer usuarioId);
+
 }
