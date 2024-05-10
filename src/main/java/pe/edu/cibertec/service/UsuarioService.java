@@ -47,8 +47,26 @@ public class UsuarioService {
 	}	
 	public List<Usuario> listarUsuarioporSector(int cod){
 		return repo.listaUsuarioPorSector(cod);
-	}	
-	
-	
-	
+	}
+	public boolean validarNombreUsuario(String nombreUsuario) {
+		Usuario usuario = repo.findByNombre(nombreUsuario);
+		if (usuario != null) {
+			System.out.println("Usuario encontrado con nombre: " + nombreUsuario);
+			return true; // Usuario encontrado, el nombre ya está en uso
+		} else {
+			System.out.println("Usuario no encontrado con nombre: " + nombreUsuario);
+			return false; // Usuario no encontrado, el nombre está disponible
+		}
+	}
+
+	public Usuario buscarPorNombre(String nombre) {
+		return repo.findByNombre(nombre);
+	}
+
+	public List<Usuario> listaRevistaPorNombreIgualRegistra(String nombre) {
+		return repo.listaPorUsuarioIgualRegistra(nombre);
+	}
+	public List<Usuario> buscarPorNombreUsuario(String nombreUsuario) {
+		return repo.listaPorUsuarioIgualRegistra(nombreUsuario);
+	}
 }
