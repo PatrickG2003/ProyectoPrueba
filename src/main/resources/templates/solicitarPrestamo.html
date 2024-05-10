@@ -159,17 +159,104 @@
 </head>
 
 <body>
-<div th:replace="~{nav :: cabecera}"></div>
 
-<div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0);">
-    <a class="text-reset fw-bold" >REGISTRAR SOLICITUD DE PRESTAMO</a>
-</div>
 <div class="container">
-    <form id="formularioSolicitud" th:action="@{registrarSolicitud}" method="POST">
-        <div class="form-group has-feedback col-md-12">
-            <label for="exampleInputEmail1"><b>Codigo</b></label><br>
-            <input type="hidden" id="idCodigo" class="form-control" name="id" value="0">
+    <a class="text-reset fw-bold" >REGISTRAR SOLICITUD DE PRESTAMO</a>
+    <div class=" mt-2">
+        <div class="col-md-3">
+            <div>
+                <label class="form-label" for=""><strong>Ingrese una fecha de Inicio</strong></label>
+                <input type="date" id="" class="form-control" name="fechaInit" />
+            </div>
         </div>
+        <table class="table border-secondary" id="tabla">
+            <thead class="table">
+            <tr>
+                <th scope="col">Duración</th>
+                <th scope="col">150.0</th>
+                <th scope="col">200.0</th>
+                <th scope="col">300.0</th>
+                <th scope="col">400.0</th>
+                <th scope="col">500.0</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--
+            <tr th:each="row:${Montos}">
+                <td th:text="${row.duracion}"></td>
+                <td>
+                    <button type="button" class="btn btn-primary" th:text="${row.cientocincuenta}"></button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-primary" th:text="${row.doscientos}"></button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-primary" th:text="${row.trescientos}"></button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-primary" th:text="${row.cuatrocientos}"></button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-primary" th:text="${row.quinientos}"></button>
+                </td>
+            </tr>
+            -->
+            <tr>
+                <td>15</td>
+                <td><button type="button" class="btn btn-primary">154.11</button></td>
+                <td><button type="button" class="btn btn-primary">204.11</button></td>
+                <td><button type="button" class="btn btn-primary">304.11</button></td>
+                <td><button type="button" class="btn btn-primary">404.11</button></td>
+                <td><button type="button" class="btn btn-primary">504.11</button></td>
+            </tr>
+            <tr>
+                <td>20</td>
+                <td><button type="button" class="btn btn-primary">155.49</button></td>
+                <td><button type="button" class="btn btn-primary">205.49</button></td>
+                <td><button type="button" class="btn btn-primary">305.49</button></td>
+                <td><button type="button" class="btn btn-primary">405.49</button></td>
+                <td><button type="button" class="btn btn-primary">505.49</button></td>
+            </tr>
+            <tr>
+                <td>25</td>
+                <td><button type="button" class="btn btn-primary">156.85</button></td>
+                <td><button type="button" class="btn btn-primary">206.85</button></td>
+                <td><button type="button" class="btn btn-primary">306.85</button></td>
+                <td><button type="button" class="btn btn-primary">406.85</button></td>
+                <td><button type="button" class="btn btn-primary">506.85</button></td>
+            </tr>
+            <tr>
+                <td>30</td>
+                <td><button type="button" class="btn btn-primary">158.20</button></td>
+                <td><button type="button" class="btn btn-primary">208.20</button></td>
+                <td><button type="button" class="btn btn-primary">308.20</button></td>
+                <td><button type="button" class="btn btn-primary">408.20</button></td>
+                <td><button type="button" class="btn btn-primary">508.20</button></td>
+            </tr>
+            <tr>
+                <td>35</td>
+                <td><button type="button" class="btn btn-primary">159.56</button></td>
+                <td><button type="button" class="btn btn-primary">209.56</button></td>
+                <td><button type="button" class="btn btn-primary">309.56</button></td>
+                <td><button type="button" class="btn btn-primary">409.56</button></td>
+                <td><button type="button" class="btn btn-primary">509.56</button></td>
+            </tr>
+            <tbody>
+        </table>
+
+    </div>
+</div>
+    <div class="modal fade" id="modalSolicitud" data-backdrop="static"
+         data-keyboard="false" tabindex="-1"
+         aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-login modal-lg" >
+            <div class="modal-content">
+                <div class="modal-header bg-blue-darker">
+                    <h4 class="modal-title text-black">Jefe</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="formularioSolicitud" th:action="@{registrarSolicitud}" method="POST">
+
         <div class="row mb-4">
             <div class="col-md-2">
                 <div>
@@ -177,20 +264,6 @@
                     <input type="text" id="" class="form-control" name="montoinicial" />
                 </div>
             </div>
-            <div class="col-md-3">
-                <div>
-                    <label class="form-label" for=""><strong>Fecha Inicio</strong></label>
-                    <input type="date" id="" class="form-control" name="fechaInicio" />
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div>
-                    <input type="button" id="botonCalcular" class="btn btn-primary" value="Calcular"/>
-                </div>
-            </div>
-
-        </div>
-        <div class="row mb-4">
             <div class="col-md-2">
                 <div>
                     <label class="form-label" for=""><strong> Monto Final</strong></label>
@@ -199,14 +272,18 @@
             </div>
             <div class="col-md-3">
                 <div>
-                    <label class="form-label" for=""><strong>Fecha Fin</strong></label>
-                    <input type="date" id="" class="form-control" name="fechaFin" readonly  />
+                    <label class="form-label" for=""><strong>Fecha Inicio</strong></label>
+                    <input type="date" id="" class="form-control" name="fechaInicio" />
                 </div>
             </div>
-            <div class="col-md-2">
+
+        </div>
+        <div class="row mb-4">
+
+            <div class="col-md-3">
                 <div>
-                    <label class="form-label" for=""><strong>Interes</strong></label>
-                    <input type="text" id="" class="form-control" name="interes" readonly  />
+                    <label class="form-label" for=""><strong>Fecha Fin</strong></label>
+                    <input type="date" id="" class="form-control" name="fechaFin" readonly  />
                 </div>
             </div>
             <div class="col-md-2">
@@ -217,8 +294,8 @@
             </div>
             <div class="col-md-2">
                 <div>
-                    <label class="form-label" for=""><strong>Periodo</strong></label>
-                    <input type="text" id="" class="form-control" name="periodo" readonly  />
+                    <label class="form-label" for=""><strong>Periodo en días</strong></label>
+                    <input type="text" id="" class="form-control" name="duracion" readonly  />
                 </div>
             </div>
         </div>
@@ -228,10 +305,13 @@
         </div>
 
     </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
-</div>
 
-
+<section>
 <footer class="text-center text-lg-start bg-body-tertiary text-muted">
 
     <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
@@ -271,50 +351,62 @@
 </section>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const botonCalcular = document.getElementById("botonCalcular");
-        botonCalcular.addEventListener("click", function(event) {
-            event.preventDefault(); // Prevenir el comportamiento por defecto del botón
+    const botonesTabla = document.querySelectorAll("#tabla button");
+    const modalSolicitud = new mdb.Modal(document.getElementById("modalSolicitud"));
 
-            const monto = parseFloat(document.querySelector("[name='montoinicial']").value);
-            const fechaInicio = new Date(document.querySelector("[name='fechaInicio']").value);
+    botonesTabla.forEach(function(boton) {
+        boton.addEventListener("click", function() {
+        const monto = parseFloat(this.textContent);
+            const montoFinal = parseFloat(this.textContent); // Obtener el monto final del botón
+            const fila = this.parentNode.parentNode; // Obtener la fila de la tabla
+            const duracion = fila.firstElementChild.textContent; // Obtener la duración de la fila
+            const fechaInicio = document.querySelector("[name='fechaInit']").value; // Obtener la fecha de inicio del campo fuera de la tabla
 
-            const resultado = calcularDatos(fechaInicio, monto);
+            const fechaFin = calcularFechaFin(new Date(fechaInicio), parseInt(duracion));
+            const pagoDiario = calcularPagoDiario(montoFinal, fechaInicio, fechaFin);
 
-            document.querySelector("[name='montofinal']").value = resultado.montoTotal.toFixed(2);
-            document.querySelector("[name='fechaFin']").value = resultado.fechaFin.toISOString().slice(0,10);
-            document.querySelector("[name='interes']").value = resultado.porcentajeInteres + "%";
-            document.querySelector("[name='pagodiario']").value = resultado.pagoDiario.toFixed(2);
-            document.querySelector("[name='periodo']").value = "DIARIO";
+            document.querySelector("[name='monto']").value = fila;
+            document.querySelector("[name='montofinal']").value = montoFinal.toFixed(2);
+            document.querySelector("[name='fechaInicio']").value = fechaInicio;
+            document.querySelector("[name='fechaFin']").value = fechaFin.toISOString().slice(0, 10);
+            document.querySelector("[name='pagodiario']").value = pagoDiario.toFixed(2);
+            document.querySelector("[name='duracion']").value = duracion;
+
+            modalSolicitud.show();
         });
     });
+});
 
-    function calcularDatos(fechaInicio, monto) {
+    function calcularFechaFin(fechaInicio, duracion) {
+        let fechaFin = new Date(fechaInicio);
+        fechaFin.setDate(fechaFin.getDate() + duracion);
 
-    let fechaFin = new Date(fechaInicio);
-    fechaFin.setDate(fechaFin.getDate() + 30);
-
-    let diasLaborables = 0;
-    let fechaActual = new Date(fechaInicio);
-    while (fechaActual <= fechaFin) {
-        if (fechaActual.getDay() !== 0 && fechaActual.getDay() !== 6) {
-            diasLaborables++;
+        // Si la fecha final cae en sábado o domingo, sumar días hasta llegar al lunes
+        while (fechaFin.getDay() === 0 || fechaFin.getDay() === 6) {
+            fechaFin.setDate(fechaFin.getDate() + 1);
         }
-        fechaActual.setDate(fechaActual.getDate() + 1);
+
+        return fechaFin;
     }
 
-    let interes = monto * 0.1;
+    function calcularPagoDiario(montoFinal, fechaInicio, fechaFin) {
+        let diasLaborables = 0;
+        let fechaActual = new Date(fechaInicio);
 
-    let montoTotal = monto + interes;
+        // Calcular el número de días laborables entre la fecha de inicio y la fecha final
+        while (fechaActual <= fechaFin) {
+            if (fechaActual.getDay() !== 0 && fechaActual.getDay() !== 6) {
+                diasLaborables++;
+            }
+            fechaActual.setDate(fechaActual.getDate() + 1);
+        }
 
-    let pagoDiario = montoTotal / diasLaborables;
+        // Calcular el pago diario dividiendo el monto final entre los días laborables
+        const pagoDiario = montoFinal / diasLaborables;
+        return pagoDiario;
+    }
 
-    return {
-        fechaFin: fechaFin,
-        porcentajeInteres: 10,
-        pagoDiario: pagoDiario,
-        montoTotal: montoTotal
-    };
-}
+
 </script>
 
 
