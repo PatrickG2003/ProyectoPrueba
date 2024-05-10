@@ -76,11 +76,18 @@ public class JefeController {
 						 @RequestParam("sector") int sectorId,
 						 RedirectAttributes redirect,HttpServletRequest request) {		
 		try {
+			List<Usuario> usuariosConNombre = servicioUsu.buscarPorNombreUsuario(use);
+			if (!usuariosConNombre.isEmpty()) {
+				redirect.addFlashAttribute("MENSAJE", "El nombre de usuario ya está en uso.");
+				return "redirect:/jefe/registrarPrestamista";
+			}
+
 			String var;
 			var = encoder.encode(pas);
 			Usuario usu=new Usuario();
 			usu.setNombre(nom);
 			usu.setApellido(ape);
+
 			usu.setEmail(ema);
 			usu.setTelefono(tel);
 			usu.setUsername(use);
