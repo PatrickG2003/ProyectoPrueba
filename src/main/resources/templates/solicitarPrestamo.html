@@ -159,7 +159,7 @@
 </head>
 
 <body>
-
+<div th:replace="~{nav :: cabecera}"></div>
 <div class="container">
     <a class="text-reset fw-bold" >REGISTRAR SOLICITUD DE PRESTAMO</a>
     <div class=" mt-2">
@@ -252,7 +252,7 @@
         <div class="modal-dialog modal-dialog-centered modal-login modal-lg" >
             <div class="modal-content">
                 <div class="modal-header bg-blue-darker">
-                    <h4 class="modal-title text-black">Jefe</h4>
+                    <h4 class="modal-title text-black">Solicitar Prestamo</h4>
                 </div>
                 <div class="modal-body">
                     <form id="formularioSolicitud" th:action="@{registrarSolicitud}" method="POST">
@@ -365,7 +365,7 @@
             const fechaFin = calcularFechaFin(new Date(fechaInicio), parseInt(duracion));
             const pagoDiario = calcularPagoDiario(montoFinal, fechaInicio, fechaFin);
 
-            document.querySelector("[name='monto']").value = fila;
+            //document.querySelector("[name='monto']").value = fila;
             document.querySelector("[name='montofinal']").value = montoFinal.toFixed(2);
             document.querySelector("[name='fechaInicio']").value = fechaInicio;
             document.querySelector("[name='fechaFin']").value = fechaFin.toISOString().slice(0, 10);
