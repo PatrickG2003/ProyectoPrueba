@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pe.edu.cibertec.entity.*;
+import pe.edu.cibertec.service.MontosServiceImpl;
 import pe.edu.cibertec.service.RolService;
 import pe.edu.cibertec.service.SolicituServiceImpl;
 import pe.edu.cibertec.service.UsuarioService;
@@ -34,6 +35,8 @@ public class PrestatarioController {
 	
 	@Autowired
 	private SolicituServiceImpl serviceSolicitud;
+	@Autowired
+	private MontosServiceImpl serviceMontos;
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 	
@@ -55,6 +58,7 @@ public class PrestatarioController {
 
 	@RequestMapping("/solicitarPrestamo")
 	public String registrarSolicitud(Model model){
+		model.addAttribute("Montos",serviceMontos.listarTodos());
 
 		return "solicitarPrestamo";
 	}
@@ -66,7 +70,6 @@ public class PrestatarioController {
 			@RequestParam("montofinal") Double montof,
 			@RequestParam("fechaFin") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaf,
 			@RequestParam("pagodiario") Double pagod,
-			@RequestParam("periodo") String periodo,
 			RedirectAttributes redirect,
 			HttpServletRequest request,
 			Authentication auth) {
@@ -86,7 +89,7 @@ public class PrestatarioController {
 			solicitud.setFechaFin(fechaf);
 			solicitud.setEstado("SOLICITADO");
 			solicitud.setPagoDiario(pagod);
-			solicitud.setPeriodo(periodo);
+			//solicitud.setPeriodo(periodo);
 
 			// Establecer el usuario en la solicitud
 			solicitud.setUsuarioRegistro(usuario);
