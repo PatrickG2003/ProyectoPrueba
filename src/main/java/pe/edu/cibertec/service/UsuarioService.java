@@ -62,6 +62,18 @@ public class UsuarioService {
 	public Usuario buscarPorNombre(String nombre) {
 		return repo.findByNombre(nombre);
 	}
+	
+	public Usuario buscaUsername(String username) {
+		return repo.findByUsername(username);
+	}
+	
+	public Usuario buscaEmail(String correo) {
+		return repo.findByEmail(correo);
+	}
+	
+	public Usuario buscaDni(String dni) {
+		return repo.findByDni(dni);
+	}
 
 	public List<Usuario> listaRevistaPorNombreIgualRegistra(String nombre) {
 		return repo.listaPorUsuarioIgualRegistra(nombre);
