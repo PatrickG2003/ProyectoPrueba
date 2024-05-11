@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pe.edu.cibertec.entity.*;
 import pe.edu.cibertec.service.MontosServiceImpl;
+import pe.edu.cibertec.service.PagosService;
 import pe.edu.cibertec.service.RolService;
 import pe.edu.cibertec.service.SolicituServiceImpl;
 import pe.edu.cibertec.service.UsuarioService;
@@ -39,7 +40,8 @@ public class PrestatarioController {
 	private MontosServiceImpl serviceMontos;
 	@Autowired
 	private BCryptPasswordEncoder encoder;
-	
+	@Autowired
+	private PagosService servicepagos;
 	@RequestMapping("/principal")
 	public String intranet(Authentication auth,Model model) {
 		String nomRol=auth.getAuthorities().stream()
@@ -128,4 +130,15 @@ public class PrestatarioController {
 
 		return "verSolicitudes";
 	}
+	
+	@RequestMapping("/buscarCronograma")
+	public String buscarCronograma(Model model) {
+		
+		int id = (int) model.getAttribute("IDUSUARIO");
+		model.addAttribute("Pagos",servicepagos.buscarCronogramaPorPrestatario(id));
+		
+
+		return "buscarCronograma";
+	}
+	
 }

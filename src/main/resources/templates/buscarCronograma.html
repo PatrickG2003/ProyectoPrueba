@@ -151,17 +151,10 @@
 			<thead class="table ">
 			<tr>
 				<th scope="col">Id</th>
-				<th scope="col">Monto Inicial</th>
-				<th scope="col">Monto Final</th>
+				<th scope="col">Monto Diario</th>
 				<th scope="col">Estado</th>
-				<th scope="col">Fecha Inicio</th>
-				<th scope="col">Fecha Fin</th>
-
-				<th scope="col">Periodo</th>
-
-				<th scope="col">Pago Diario</th>
+				<th scope="col">Fecha </th>
 				<th scope="col">Usuario</th>
-				<th scope="col">Sector</th>
 
 				<th scope="col"></th>
 				<th scope="col"></th>
@@ -170,21 +163,15 @@
 			</thead>
 			<tbody>
 
-			<tr th:each="row:${Solicitudes}">
-				<td th:text="${row.id}"></td>
-				<td th:text="${row.montoInicial}"></td>
-				<td th:text="${row.montoFinal}"></td>
+			<tr th:each="row:${Pagos}">
+				<td th:text="${row.codigo}"></td>
+				<td th:text="${row.montodiario}"></td>
 				<td th:text="${row.estado}"></td>
-				<td th:text="${row.fechaInicio}"></td>
-				<td th:text="${row.fechaFin}"></td>
-				<td th:text="${row.periodo}"></td>
-				<td th:text="${row.pagoDiario}"></td>
-				<td th:text="${row.usuarioRegistro.nombre}"></td>
-				<td th:text="${row.usuarioRegistro.sector.nombre}"></td>
+				<td th:text="${row.fecha}"></td>
+				<td th:text="${row.usuario.nombre}"></td>
 
-				<td>  <a th:href="@{/prestamista/desaprobarEstadoSolicitud(codigo=${row.id}     )}" class="btn btn-danger btn-eliminar" onclick="return confirm('¿Está seguro de Desaprobar esta solicitud?');">DESAPROBAR</a> </td>
-				<td>  <a th:href="@{/prestamista/aprobarEstadoSolicitud(codigo=${row.id}, montodiario=${row.pagoDiario} ,idusu=${row.usuarioRegistro.id},fec1=${row.fechaInicio},fec2=${row.fechaFin})}" class="btn btn-info btn-editar" onclick="return confirm('¿Está seguro de Aprobar esta solicitud?');">APROBAR</a> </td>
 
+		
 
 			<tbody>
 		</table>
