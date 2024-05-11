@@ -1,5 +1,10 @@
 package pe.edu.cibertec.controller;
 
+import java.sql.Date;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,9 +24,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpServletRequest;
 import pe.edu.cibertec.entity.Enlace;
+import pe.edu.cibertec.entity.Pagos;
 import pe.edu.cibertec.entity.Rol;
 import pe.edu.cibertec.entity.Sector;
 import pe.edu.cibertec.entity.Usuario;
+import pe.edu.cibertec.service.PagosService;
 import pe.edu.cibertec.service.RolService;
 import pe.edu.cibertec.service.SectorServiceImpl;
 import pe.edu.cibertec.service.SolicituServiceImpl;
@@ -38,7 +45,8 @@ public class PrestamistaController {
 	@Autowired
 	private SolicituServiceImpl servicioSol;
 	
-	
+	@Autowired
+	private PagosService pagosservice;
 	@Autowired
 	private RolService servicioRol;
 	@Autowired
@@ -174,12 +182,37 @@ public class PrestamistaController {
 	
 	@Transactional
 	@RequestMapping("/aprobarEstadoSolicitud")
-	public String aprobarEstadoSolicitud(@RequestParam("codigo") Integer cod,RedirectAttributes redirect) {
-		 
-		 
-	            servicioSol.aprobarSolicitud(cod);
-	       	
-		 return "redirect:/prestamista/listarSolicitudes";
+	public String aprobarEstadoSolicitud(@RequestParam("codigo") Integer cod,
+	        @RequestParam("montodiario") String monto,
+	        @RequestParam("idusu") String idusu,
+	        @RequestParam("fec1") String fec1Str,
+	        @RequestParam("fec2") String fec2Str,
+	        RedirectAttributes redirect) {
+
+	    // Convertir las cadenas de fecha a objetos LocalDate
+	    LocalDate fec1 = LocalDate.parse(fec1Str);
+	    LocalDate fec2 = LocalDate.parse(fec2Str);
+
+	    long diferenciaDias = ChronoUnit.DAYS.between(fec1, fec2);
+
+	    for (int i = 0; i < diferenciaDias; i++) {
+	        LocalDate fechaPago = fec1.plusDays(i);
+	        if (fechaPago.getDayOfWeek() != DayOfWeek.SATURDAY && fechaPago.getDayOfWeek() != DayOfWeek.SUNDAY) {
+	            Pagos pagosin = new Pagos();
+	            pagosin.setMontodiario(Double.parseDouble(monto));
+	            pagosin.setEstado("Pendiente");
+	            pagosin.setFecha(Date.from(fechaPago.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+
+	            Usuario usu = new Usuario();
+	            usu.setId(Integer.parseInt(idusu));
+	            pagosin.setUsuario(usu);
+
+	            pagosservice.registrar(pagosin);
+	        }
+	    }
+        servicioSol.aprobarSolicitud(cod);
+
+	    return "redirect:/prestamista/listarSolicitudes";
 	}
 	
 	@Transactional
