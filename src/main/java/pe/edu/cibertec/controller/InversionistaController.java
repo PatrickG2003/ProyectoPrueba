@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import pe.edu.cibertec.entity.Enlace;
 import pe.edu.cibertec.entity.Rol;
 import pe.edu.cibertec.entity.Sector;
@@ -65,15 +68,16 @@ public class InversionistaController {
 		}
 		
 		@RequestMapping("/grabarJefe")
-		public String grabarJefe(
+		public ResponseEntity<String> grabarJefe(
 				 @RequestParam("id") Integer id,
-				 @RequestParam("nombre") String nom,
-				 @RequestParam("apellido") String ape,
-				 @RequestParam("email") String ema,
-				 @RequestParam("telefono") String tel,
-				 @RequestParam("username") String use,
-				 @RequestParam("password") String pas,
-				 @RequestParam("sector") int sectorId,
+				 @Valid@RequestParam("nombre") String nom,
+				 @Valid@RequestParam("apellido") String ape,
+				 @Valid@RequestParam("email") String ema,
+				 @Valid@RequestParam("telefono") String tel,
+				 @Valid@RequestParam("username") String use,
+				 @Valid@RequestParam("password") String pas,
+				 @Valid@RequestParam("dni") String dni,
+				 @Valid@RequestParam("sector") int sectorId,
 				 RedirectAttributes redirect,HttpServletRequest request,Authentication auth) {
 						try {
 							// Obtener el usuario autenticado desde el objeto Authentication
@@ -86,45 +90,58 @@ public class InversionistaController {
 							String var;
 							var = encoder.encode(pas);
 							Usuario usu=new Usuario();
-							usu.setNombre(nom);
-							usu.setApellido(ape);
-							usu.setEmail(ema);
-							usu.setTelefono(tel);
-							usu.setUsername(use);
 							
-						
-							Sector sector = new Sector();
-					        sector.setId(sectorId);
-					        usu.setSector(sector);
-					        
-							Rol r=new Rol();
-							r.setCodigo(2);
-							usu.setRol(r);
+							if(servicioUsu.buscaDni(dni) != null) {
+								return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"message\": \"El DNI ya está registrado\"}");
+							}else if(servicioUsu.buscarPorNombre(nom) != null) {
+								return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"message\": \"El Nombre ya está registrado\"}");
+							}else if(servicioUsu.buscaUsername(use) != null) {
+								return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"message\": \"El Username ya está registrado\"}");
+							}else if(servicioUsu.buscaEmail(ema) != null) {
+								return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"message\": \"El Correo ya está registrado\"}");
+							}else {
+								usu.setNombre(nom);
+								usu.setApellido(ape);
+								usu.setEmail(ema);
+								usu.setTelefono(tel);
+								usu.setUsername(use);
+								usu.setDni(dni);
+								
+							
+								Sector sector = new Sector();
+						        sector.setId(sectorId);
+						        usu.setSector(sector);
+						        
+								Rol r=new Rol();
+								r.setCodigo(2);
+								usu.setRol(r);
 
-							//Sector sector=new Sector();
-							//sector.setId(1);
-							//usu.setSector(sector);
-							usu.setIdUsuarioRegistra(usuario.getId());
+								//Sector sector=new Sector();
+								//sector.setId(1);
+								//usu.setSector(sector);
+								usu.setIdUsuarioRegistra(usuario.getId());
 
-							if(id ==0) {
-								usu.setPassword(var);
-								servicioUsu.registrar(usu);
-								redirect.addFlashAttribute("MENSAJE","Jefe de Prestamista registrado");
-							}
-							else {
-								usu.setId(id);
-								usu.setPassword(pas);
-								servicioUsu.actualizar(usu);
-								redirect.addFlashAttribute("MENSAJE","Jefe Prestamista actualizado");
+								if(id ==0) {
+									usu.setPassword(var);
+									servicioUsu.registrar(usu);
+									redirect.addFlashAttribute("MENSAJE","Jefe de Prestamista registrado");
+								}
+								else {
+									usu.setId(id);
+									usu.setPassword(pas);
+									servicioUsu.actualizar(usu);
+									redirect.addFlashAttribute("MENSAJE","Jefe Prestamista actualizado");
+								}
+								
+								redirect.addFlashAttribute("MENSAJE","Prestamista registrado");
 							}
 							
-							redirect.addFlashAttribute("MENSAJE","Prestamista registrado");
 							
 							
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-						return "redirect:/inversionista/listaJefe";
+						return ResponseEntity.ok("Usuario registrado exitosamente");
 		}
 		@ModelAttribute("sectores")
 		public List<Sector> getSector(){

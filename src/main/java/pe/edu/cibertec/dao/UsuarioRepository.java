@@ -29,4 +29,10 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
 	public Usuario findByNombre(String nombre);
 	@Query("select e from Usuario e where e.nombre = ?1 ")
 	public abstract List<Usuario> listaPorUsuarioIgualRegistra(String nombre);
+	
+	public Usuario findByEmail(String correo);
+	
+	public Usuario findByUsername(String username);
+	
+	public Usuario findByDni(String dni);
 }

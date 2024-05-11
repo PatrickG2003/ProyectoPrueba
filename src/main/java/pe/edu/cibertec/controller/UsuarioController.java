@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import pe.edu.cibertec.entity.Enlace;
 import pe.edu.cibertec.entity.Rol;
 import pe.edu.cibertec.entity.Sector;
@@ -64,48 +67,60 @@ public class UsuarioController {
 	
 	//METODO PARA QUE EL PRESTATARIO SE REGISTRE SOLO
 	@RequestMapping("/registrarPrestatario")
-	public String registrarPrestatario(
-						 @RequestParam("nombre") String nom,
-						 @RequestParam("apellido") String ape,
-						 @RequestParam("celular") String cel,
-						 @RequestParam("correo") String cor,
-						 @RequestParam("usuario") String usu,
-						 @RequestParam("password") String pas,
-						 @RequestParam("sector") int sectorId,
+	public ResponseEntity<String> registraPrestatario(
+						 @Valid@RequestParam("nombre") String nom,
+						 @Valid@RequestParam("apellido") String ape,
+						 @Valid@RequestParam("celular") String cel,
+						 @Valid@RequestParam("correo") String cor,
+						 @Valid@RequestParam("usuario") String usu,
+						 @Valid@RequestParam("password") String pas,
+						 @Valid@RequestParam("dni") String dni,
+						 @Valid@RequestParam("sector") int sectorId,
 						 RedirectAttributes redirect,HttpServletRequest request) {		
 		try {
 			
 			String var;
 			var = encoder.encode(pas);
 			Usuario usuario=new Usuario();
-			usuario.setNombre(nom);
-			usuario.setApellido(ape);
-			usuario.setEmail(cor);
-			usuario.setTelefono(cel);
-			usuario.setUsername(usu);
-			usuario.setPassword(var);
 			
-			Sector sector = new Sector();
-	        sector.setId(sectorId);
-	        usuario.setSector(sector);
-	        
-	      	//Sector sector=new Sector();
-			//sector.setId(1);
-	        //usuario.setSector(sector);
-			Rol rol=new Rol();
-			rol.setCodigo(4);			
-			usuario.setRol(rol);
+			if(servicioUsu.buscaDni(dni) != null) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"message\": \"El DNI ya está registrado\"}");
+			}else if(servicioUsu.buscarPorNombre(nom) != null) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"message\": \"El nombre ya está registrado\"}");
+			}else if(servicioUsu.buscaUsername(usu) != null) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"message\": \"El Usuario ya está registrado\"}");
+			}else if(servicioUsu.buscaEmail(cor) != null) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"message\": \"El Email ya está registrado\"}");
+			}else {
+				usuario.setNombre(nom);
+				usuario.setApellido(ape);
+				usuario.setEmail(cor);
+				usuario.setTelefono(cel);
+				usuario.setUsername(usu);
+				usuario.setPassword(var);
+				usuario.setDni(dni);
+				
+				Sector sector = new Sector();
+		        sector.setId(sectorId);
+		        usuario.setSector(sector);
+		        
+		      	//Sector sector=new Sector();
+				//sector.setId(1);
+		        //usuario.setSector(sector);
+				Rol rol=new Rol();
+				rol.setCodigo(4);			
+				usuario.setRol(rol);
+				
 			
-		
-			servicioUsu.registrar(usuario);
-			
-			redirect.addFlashAttribute("MENSAJE","Usuario registrado");
-			
+				servicioUsu.registrar(usuario);
+				
+				redirect.addFlashAttribute("MENSAJE","Usuario registrado");
+			}	
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/sesion/login";
+		return ResponseEntity.ok("Usuario registrado exitosamente");
 	}
 	
 	

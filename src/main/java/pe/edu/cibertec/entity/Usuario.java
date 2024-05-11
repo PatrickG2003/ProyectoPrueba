@@ -14,6 +14,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "tb_usuario")
@@ -23,19 +25,33 @@ public class Usuario implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_usuario")
     private Integer id;
-	@Column(name = "username")
+    
+    @NotBlank(message = "El username esta vacio")
+	@Column(name = "username", unique = true)
     private String username;
+    
 	@Column(name = "password")
     private String password;
-	@Column(name = "nombre")
+    
+    @NotBlank(message = "El nombre esta vacio")
+	@Column(name = "nombre", unique = true)
     private String nombre;
+    
+    @NotBlank(message = "El apellido esta vacio")
 	@Column(name = "apellido")
     private String apellido;
-	@Column(name = "email", length = 100)
+   
+    @NotBlank(message = "El email esta vacio")
+	@Column(name = "email", length = 100, unique = true)
     private String email;
+    
+    
 	@Column(name = "telefono")
     private String telefono;
-
+	
+	@NotBlank(message = "El dni esta vacio")
+	@Column(name = "dni", unique = true)
+	private String dni;
 	@ManyToOne
 	@JoinColumn(name="idrol")
 	private Rol rol;
@@ -125,5 +141,14 @@ public class Usuario implements Serializable {
 		this.sector = sector;
 	}
 
+	public String getDni() {
+		return dni;
+	}
+
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+
+	
 	
 }

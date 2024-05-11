@@ -12,6 +12,8 @@
 
 
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
 	<style>
 		body {
@@ -176,8 +178,12 @@
 						<button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-						<form th:action="@{registrarPrestatario}" method="POST">
+						<form id="form" th:action="@{registrarPrestatario}" method="POST">
 							<div class="row">
+								<div class="col-12">
+								    <label for="dni" class="col-form-label">DNI:</label>
+								    <input type="text" class="form-control" name="dni" id="dni" maxlength="8" minlength="8" pattern="[0-9]{8}" title="EL FORMATO ES INCORRECTO, solo acepta 8 números"/>
+								</div>
 								<div class="col-md-6">
 									<div class="col-12">
 										<label for="nombre" class="col-form-label">Nombre:</label>
@@ -185,7 +191,7 @@
 									</div>
 									<div class="col-12">
 										<label for="correo" class="col-form-label">Correo:</label>
-										<input type="text" class="form-control" name="correo" />
+										<input type="email" class="form-control" name="correo" />
 									</div>
 									<div class="col-12">
 										<label for="password" class="col-form-label">Contraseña:</label>
@@ -199,7 +205,7 @@
 									</div>
 									<div class="col-12">
 										<label for="telefono" class="col-form-label">Celular:</label>
-										<input type="text" class="form-control" name="celular" />
+										<input type="text" class="form-control" name="celular" maxlength="9" minlength="9" pattern="[0-9]{9}" title="EL FORMATO ES INCORRECTO, solo acepta 9 números"/>
 									</div>
 									<div class="col-12">
 										<label for="usuario" class="col-form-label">Nombre de Usuario:</label>
@@ -253,5 +259,34 @@
 		</div>
 	</div>
 </body>
+<script>
+$(document).ready(function() {
+    $('#form').submit(function(event) {
+        event.preventDefault(); // Evita que se envíe el formulario de forma predeterminada
+        
+        // Realiza la solicitud AJAX al controlador Spring
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: $(this).serialize(), // Serializa los datos del formulario
+            success: function(response) {
+                // Si la respuesta es exitosa, redirige al usuario al formulario de inicio de sesión
+                window.location.href = "/sesion/login";
+            },
+            error: function(xhr, status, error) {
+                // Si hay un error en la solicitud AJAX
+                if (xhr.status === 400) {
+                    // Si el usuario ya está registrado, muestra una alerta
+                    var responseData = JSON.parse(xhr.responseText); // Parsea la respuesta JSON
+                    alert(responseData.message); // Muestra el mensaje de error proporcionado por el servidor
+                } else {
+                    // Maneja otros errores de manera adecuada
+                }
+            }
+        });
+    });
+});
+</script>
+
 
 </html>
