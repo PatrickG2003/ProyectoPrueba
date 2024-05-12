@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import pe.edu.cibertec.entity.Enlace;
 import pe.edu.cibertec.entity.Pagos;
 import pe.edu.cibertec.entity.Rol;
@@ -87,19 +90,31 @@ public class PrestamistaController {
 		return "listarPrestatarios";
 	}
 	@RequestMapping("/grabarPrestatario")
-	public String grabarPrestatarios(Model model,
+	public ResponseEntity<String>  grabarPrestatarios(Model model,
 						 @RequestParam("id") Integer id,
-						 @RequestParam("nombre") String nom,
-						 @RequestParam("apellido") String ape,
-						 @RequestParam("email") String ema,
-						 @RequestParam("telefono") String tel,
-						 @RequestParam("username") String use,
-						 @RequestParam("password") String pas,
+						 @Valid@RequestParam("nombre") String nom,
+						 @Valid@RequestParam("apellido") String ape,
+						 @Valid@RequestParam("email") String ema,
+						 @Valid@RequestParam("dni") String dni,
+						 @Valid@RequestParam("telefono") String tel,
+						 @Valid@RequestParam("username") String use,
+						 @Valid@RequestParam("password") String pas,
 						 RedirectAttributes redirect,HttpServletRequest request) {		
 		try {
 			String var;
 			var = encoder.encode(pas);
 			Usuario usu=new Usuario();
+			
+			if(servicioUsu.buscaDni(dni) != null) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"message\": \"El DNI ya está registrado\"}");
+			}else if(servicioUsu.buscarPorNombre(nom) != null) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"message\": \"El Nombre ya está registrado\"}");
+			}else if(servicioUsu.buscaUsername(use) != null) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"message\": \"El Username ya está registrado\"}");
+			}else if(servicioUsu.buscaEmail(ema) != null) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"message\": \"El Correo ya está registrado\"}");
+			}else {
+			
 			usu.setNombre(nom);
 			usu.setApellido(ape);
 			usu.setEmail(ema);
@@ -132,12 +147,12 @@ public class PrestamistaController {
 			}
 			
 			redirect.addFlashAttribute("MENSAJE","Prestatario registrado");
-			
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/prestamista/listarPrestatarios";
+		return ResponseEntity.ok("Usuario registrado exitosamente");
 	}
 	
 	@ModelAttribute("sectores")

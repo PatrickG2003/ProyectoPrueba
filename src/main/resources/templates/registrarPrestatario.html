@@ -18,6 +18,8 @@
 
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js"></script>
 	<script src="https://kit.fontawesome.com/23f63af3b1.js" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 	<title>Pagina Principal</title>
 </head>
 
@@ -123,7 +125,7 @@
 
 
 	<div class="container">
-		<form th:action="@{grabarPrestatario}" method="POST">
+		<form id="form" th:action="@{grabarPrestatario}" method="POST">
 
 
 			<div class="row">
@@ -132,6 +134,12 @@
 					<input type="hidden" id="idCodigo" class="form-control" name="id" value="0">
 				</div>
 				<div class="row mb-4">
+					<div class="col">
+					<div>
+						<label class="form-label" for=""><strong> DNI</strong></label>
+						<input type="text" class="form-control" name="dni" id="dni" maxlength="8" minlength="8" pattern="[0-9]{8}" title="EL FORMATO ES INCORRECTO, solo acepta 8 números"/>
+					</div>
+					</div>
 					<div class="col">
 						<div>
 							<label class="form-label" for=""><strong> Nombre</strong></label>
@@ -157,19 +165,19 @@
 						<div>
 							<label class="form-label" for=""><strong>Email</strong></label>
 							<br>
-							<input type="textbox" id="" class="form-control" name="email" />
+							<input type="email" id="" class="form-control" name="email" />
 						</div>
 					</div>
 					<div class="col">
 						<div>
 							<label class="form-label" for=""><strong>Telefono</strong></label>
-							<input type="textbox" id="" class="form-control" name="telefono" />
+							<input type="textbox" class="form-control" name="telefono" maxlength="9" minlength="9" pattern="[0-9]{9}" title="EL FORMATO ES INCORRECTO, solo acepta 9 números"/>
 						</div>
 					</div>
 					<div class="col">
 						<div>
 							<label class="form-label" for=""><strong>Contraseña</strong></label>
-							<input type="textbox" id="" class="form-control" name="password" />
+							<input type="password" id="" class="form-control" name="password" />
 						</div>
 					</div>
 
@@ -245,5 +253,53 @@
 		}
 	</script>
 </body>
+
+<script>
+$(document).ready(function() {
+    $('#logoutButton').submit(function(event) {
+        event.preventDefault(); // Evita que se envíe el formulario de forma predeterminada
+        
+        // Realiza la solicitud AJAX al controlador Spring para cerrar sesión
+        $.ajax({
+            type: 'POST', // o 'GET' dependiendo de cómo esté implementado el cierre de sesión en tu servidor
+            url: '/logout', // URL que maneja el cierre de sesión
+            success: function(response) {
+                // Si la respuesta es exitosa, redirige al usuario a la página de inicio, o realiza cualquier otra acción necesaria
+                window.location.href = "/sesion/login"; // Redirige al usuario a la página de inicio
+            },
+            error: function(xhr, status, error) {
+                // Maneja cualquier error de manera adecuada
+                console.error('Error al cerrar sesión:', error);
+            }
+        });
+    });
+
+    $('#form').submit(function(event) {
+        event.preventDefault(); // Evita que se envíe el formulario de forma predeterminada
+        
+        // Realiza la solicitud AJAX al controlador Spring
+        $.ajax({
+			type: 'POST',
+			            url: $(this).attr('action'),
+			            data: $(this).serialize(), // Serializa los datos del formulario
+			            success: function(response) {
+			                // Si la respuesta es exitosa, redirige o realiza cualquier otra acción necesaria
+			                alert(response); // Muestra un mensaje de éxito
+			            },
+            error: function(xhr, status, error) {
+                // Si hay un error en la solicitud AJAX
+                if (xhr.status === 400) {
+                    // Si el usuario ya está registrado, muestra una alerta
+                    var responseData = JSON.parse(xhr.responseText); // Parsea la respuesta JSON
+                    alert(responseData.message); // Muestra el mensaje de error proporcionado por el servidor
+                } else {
+                    // Maneja otros errores de manera adecuada
+                }
+            }
+        });
+    });
+});
+</script>
+
 
 </html>
