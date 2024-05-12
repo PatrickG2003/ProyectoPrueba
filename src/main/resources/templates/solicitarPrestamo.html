@@ -185,63 +185,22 @@
             <tr th:each="row:${Montos}">
                 <td th:text="${row.dias}"></td>
                 <td>
-                    <button type="button" class="btn btn-primary" th:text="${row.cientocincuenta}"></button>
+                    <button type="button" class="btn btn-primary monto-button " th:text="${row.cientocincuenta}" data-monto="150.0"></button>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-primary" th:text="${row.doscientos}"></button>
+                    <button type="button" class="btn btn-primary  monto-button" th:text="${row.doscientos}" data-monto="200.0"></button>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-primary" th:text="${row.trescientos}"></button>
+                    <button type="button" class="btn btn-primary monto-button " th:text="${row.trescientos}" data-monto="300.0"></button>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-primary" th:text="${row.cuatrocientos}"></button>
+                    <button type="button" class="btn btn-primary monto-button" th:text="${row.cuatrocientos}" data-monto="400.0" ></button>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-primary" th:text="${row.quinientos}"></button>
+                    <button type="button" class="btn btn-primary monto-button" th:text="${row.quinientos}" data-monto="500.0" > </button>
                 </td>
             </tr>
-            <!--
-            <tr>
-                <td>15</td>
-                <td><button type="button" class="btn btn-primary">154.11</button></td>
-                <td><button type="button" class="btn btn-primary">204.11</button></td>
-                <td><button type="button" class="btn btn-primary">304.11</button></td>
-                <td><button type="button" class="btn btn-primary">404.11</button></td>
-                <td><button type="button" class="btn btn-primary">504.11</button></td>
-            </tr>
-            <tr>
-                <td>20</td>
-                <td><button type="button" class="btn btn-primary">155.49</button></td>
-                <td><button type="button" class="btn btn-primary">205.49</button></td>
-                <td><button type="button" class="btn btn-primary">305.49</button></td>
-                <td><button type="button" class="btn btn-primary">405.49</button></td>
-                <td><button type="button" class="btn btn-primary">505.49</button></td>
-            </tr>
-            <tr>
-                <td>25</td>
-                <td><button type="button" class="btn btn-primary">156.85</button></td>
-                <td><button type="button" class="btn btn-primary">206.85</button></td>
-                <td><button type="button" class="btn btn-primary">306.85</button></td>
-                <td><button type="button" class="btn btn-primary">406.85</button></td>
-                <td><button type="button" class="btn btn-primary">506.85</button></td>
-            </tr>
-            <tr>
-                <td>30</td>
-                <td><button type="button" class="btn btn-primary">158.20</button></td>
-                <td><button type="button" class="btn btn-primary">208.20</button></td>
-                <td><button type="button" class="btn btn-primary">308.20</button></td>
-                <td><button type="button" class="btn btn-primary">408.20</button></td>
-                <td><button type="button" class="btn btn-primary">508.20</button></td>
-            </tr>
-            <tr>
-                <td>35</td>
-                <td><button type="button" class="btn btn-primary">159.56</button></td>
-                <td><button type="button" class="btn btn-primary">209.56</button></td>
-                <td><button type="button" class="btn btn-primary">309.56</button></td>
-                <td><button type="button" class="btn btn-primary">409.56</button></td>
-                <td><button type="button" class="btn btn-primary">509.56</button></td>
-            </tr>
-            -->
+           
             <tbody>
         </table>
 
@@ -260,10 +219,12 @@
 
         <div class="row mb-4">
             <div class="col-md-2">
+		
                 <div>
                     <label class="form-label" for=""><strong> Monto</strong></label>
-                    <input type="text" id="" class="form-control" name="montoinicial" />
+                    <input type="text" id="monto-inicial" class="form-control" name="montoinicial"   />
                 </div>
+            
             </div>
             <div class="col-md-2">
                 <div>
@@ -300,6 +261,7 @@
                 </div>
             </div>
         </div>
+  
 
         <div class="text-center">
             <input type="submit" class="btn btn-primary" value="Registrar"/>
@@ -409,6 +371,21 @@
 
 
 </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const botonesTabla = document.querySelectorAll(".monto-button");
+        const campoMonto = document.getElementById("monto-inicial");
+
+        botonesTabla.forEach(function(boton) {
+            boton.addEventListener("click", function() {
+                const monto = parseFloat(this.getAttribute("data-monto"));
+                campoMonto.value = monto.toFixed(2);
+            });
+        });
+    });
+</script>
+
 
 
 </body>
